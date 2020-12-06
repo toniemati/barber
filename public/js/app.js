@@ -2083,7 +2083,10 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         axios.post("/api/rezerwacje", this.user).then(function () {
           return _this.$router.push({
-            path: "/rezerwacje"
+            name: "rezerwacje",
+            params: {
+              message: "Pomyślnie dodano rezerwacje."
+            }
           });
         });
       }
@@ -2269,7 +2272,10 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         axios.put("/api/rezerwacje/" + this.user.id, this.user).then(function () {
           return _this.$router.push({
-            path: "/rezerwacje"
+            name: "rezerwacje",
+            params: {
+              message: "Pomyślnie edytowano rezerwacje."
+            }
           });
         });
       }
@@ -2320,7 +2326,10 @@ __webpack_require__.r(__webpack_exports__);
 
       axios["delete"]("/api/rezerwacje/" + id).then(function () {
         return _this3.$router.push({
-          path: "/rezerwacje"
+          name: "rezerwacje",
+          params: {
+            message: "Pomyślnie usunięto rezerwacje."
+          }
         });
       });
     }
@@ -2341,6 +2350,85 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2379,17 +2467,61 @@ __webpack_require__.r(__webpack_exports__);
   name: "Reservation",
   data: function data() {
     return {
-      users: null
+      users: null,
+      dates: [],
+      godziny: [],
+      message: null
     };
   },
-  mounted: function mounted() {
-    var _this = this;
+  methods: {
+    getRezerwacje: function getRezerwacje() {
+      var _this = this;
 
-    axios.get("/api/rezerwacje").then(function (response) {
-      return _this.users = response.data;
-    })["catch"](function (err) {
-      return console.log(err);
-    });
+      axios.get("/api/rezerwacje").then(function (response) {
+        return (_this.users = response.data).then(_this.sortGodz());
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
+    getMessage: function getMessage() {
+      this.message = this.$route.params.message;
+    },
+    sortGodz: function sortGodz() {
+      var _this2 = this;
+
+      this.users.forEach(function (user) {
+        _this2.godziny.push(user.godzina);
+      });
+      this.godziny = _toConsumableArray(new Set(this.godziny));
+      this.godziny.sort();
+    },
+    setDates: function setDates() {
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+
+      for (var i = -3; i < 4; i++) {
+        var newDay = day + i;
+        var newMonth = month;
+
+        if (newDay < 10) {
+          newDay = "0" + newDay;
+        }
+
+        if (newMonth < 10) {
+          newMonth = "0" + newMonth;
+        }
+
+        this.dates.push(year + "-" + newMonth + "-" + newDay);
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.getRezerwacje();
+    this.getMessage();
+    this.setDates();
+    console.log(this.dates[3]);
   }
 });
 
@@ -38046,7 +38178,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", [
     _c("h1", { staticClass: "text-center" }, [_vm._v("AddRezerwacje.vue")]),
     _vm._v(" "),
     _c(
@@ -38262,7 +38394,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", [
     _c("h1", { staticClass: "text-center" }, [_vm._v("EditRezerwacje.vue")]),
     _vm._v(" "),
     _c(
@@ -38475,8 +38607,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", [
     _c("h1", { staticClass: "text-center" }, [_vm._v("Rezerwacje.vue")]),
+    _vm._v(" "),
+    this.message
+      ? _c(
+          "p",
+          {
+            staticClass: "alert alert-success text-center",
+            attrs: { role: "alert" }
+          },
+          [_vm._v("\n        " + _vm._s(_vm.message) + "\n    ")]
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
@@ -38491,60 +38634,236 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c("table", { staticClass: "table" }, [
-      _vm._m(0),
+    _c("table", { staticClass: "table table-hover" }, [
+      _c(
+        "thead",
+        { staticClass: "thead-dark" },
+        [
+          _c("th", [_vm._v("Godziny")]),
+          _vm._v(" "),
+          _vm._l(_vm.dates, function(data) {
+            return _c("th", { key: data }, [
+              _vm._v("\n                " + _vm._s(data) + "\n            ")
+            ])
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.users, function(user) {
-          return _c("tr", { key: user.id }, [
-            _c("td", [_vm._v(_vm._s(user.id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.imie))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.nazwisko))]),
-            _vm._v(" "),
-            _c(
-              "td",
-              [
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-outline-warning",
-                    attrs: { to: "/rezerwacje/edit/" + user.id }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Edit\n                    "
+        _vm._l(_vm.godziny, function(godz) {
+          return _c(
+            "tr",
+            { key: godz },
+            [
+              _c("td", [_vm._v(_vm._s(godz))]),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return user.godzina === godz && user.data === _vm.dates[0]
+                  ? _c(
+                      "td",
+                      { key: user.id },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "badge badge-info",
+                            attrs: { to: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(user.imie) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
                     )
-                  ]
-                )
-              ],
-              1
-            )
-          ])
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return user.godzina === godz && user.data === _vm.dates[1]
+                  ? _c(
+                      "td",
+                      { key: user.id },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "badge badge-info",
+                            attrs: { to: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(user.imie) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return user.godzina === godz && user.data === _vm.dates[2]
+                  ? _c(
+                      "td",
+                      { key: user.id },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "badge badge-info",
+                            attrs: { to: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(user.imie) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return user.godzina === godz && user.data === _vm.dates[3]
+                  ? _c(
+                      "td",
+                      { key: user.id },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "badge badge-info",
+                            attrs: { to: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(user.imie) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return user.godzina === godz && user.data === _vm.dates[4]
+                  ? _c(
+                      "td",
+                      { key: user.id },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "badge badge-info",
+                            attrs: { to: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(user.imie) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return user.godzina === godz && user.data === _vm.dates[5]
+                  ? _c(
+                      "td",
+                      { key: user.id },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "badge badge-info",
+                            attrs: { to: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(user.imie) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("td"),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return user.godzina === godz && user.data === _vm.dates[6]
+                  ? _c(
+                      "td",
+                      { key: user.id },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "badge badge-info",
+                            attrs: { to: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(user.imie) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              _vm._v(" "),
+              _c("td")
+            ],
+            2
+          )
         }),
         0
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("th", [_vm._v("ID")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Imie")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Nazwisko")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Edit")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54237,15 +54556,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
     path: '/admin',
+    name: "admin",
     component: _components_Admin__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: '/rezerwacje',
+    name: "rezerwacje",
     component: _components_reservation_Rezerwacje__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: '/rezerwacje/add',
+    name: "addrezerwacje",
     component: _components_reservation_AddRezerwacje__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
     path: '/rezerwacje/edit/:id',
+    name: "editrezerwacje",
     component: _components_reservation_EditRezerwacje__WEBPACK_IMPORTED_MODULE_5__["default"]
   }],
   mode: 'history'

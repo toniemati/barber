@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
         <h1 class="text-center">EditRezerwacje.vue</h1>
 
         <form method="post" class="col-4 mx-auto" @submit="checkForm">
@@ -138,7 +138,14 @@
                 } else {
                     axios
                         .put("/api/rezerwacje/" + this.user.id, this.user)
-                        .then(() => this.$router.push({ path: "/rezerwacje" }));
+                        .then(() =>
+                            this.$router.push({
+                                name: "rezerwacje",
+                                params: {
+                                    message: "Pomyślnie edytowano rezerwacje."
+                                }
+                            })
+                        );
                 }
             },
 
@@ -179,9 +186,14 @@
             },
 
             removeReservation: function(id) {
-                axios
-                    .delete("/api/rezerwacje/" + id)
-                    .then(() => this.$router.push({ path: "/rezerwacje" }));
+                axios.delete("/api/rezerwacje/" + id).then(() =>
+                    this.$router.push({
+                        name: "rezerwacje",
+                        params: {
+                            message: "Pomyślnie usunięto rezerwacje."
+                        }
+                    })
+                );
             }
         },
 

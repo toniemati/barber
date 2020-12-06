@@ -9,10 +9,10 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
-        { path: '/admin', component: Admin },
-        { path: '/rezerwacje', component: Rezerwacje },
-        { path: '/rezerwacje/add', component: AddRezerwacje },
-        { path: '/rezerwacje/edit/:id', component: EditRezerwacje },
+        { path: '/admin', name: "admin", component: Admin },
+        { path: '/rezerwacje', name: "rezerwacje", component: Rezerwacje },
+        { path: '/rezerwacje/add', name: "addrezerwacje", component: AddRezerwacje },
+        { path: '/rezerwacje/edit/:id', name: "editrezerwacje", component: EditRezerwacje },
     ],
     mode: 'history'
 });

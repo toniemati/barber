@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
         <h1 class="text-center">AddRezerwacje.vue</h1>
 
         <form method="post" class="col-4 mx-auto" @submit="checkForm">
@@ -137,9 +137,14 @@
                 if (Object.keys(this.errors).length) {
                     // console.log("sa err");
                 } else {
-                    axios
-                        .post("/api/rezerwacje", this.user)
-                        .then(() => this.$router.push({ path: "/rezerwacje" }));
+                    axios.post("/api/rezerwacje", this.user).then(() =>
+                        this.$router.push({
+                            name: "rezerwacje",
+                            params: {
+                                message: "Pomyślnie dodano rezerwacje."
+                            }
+                        })
+                    );
                 }
             },
 

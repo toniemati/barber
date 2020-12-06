@@ -80,6 +80,10 @@ class ReservationController extends Controller
         $res = Reservation::findOrFail($id);
 
         $res->update($request->all());
+
+        return [
+            'message' => 'Pomyślnie edytowano rezerwacje'
+        ];
     }
 
     /**
