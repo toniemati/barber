@@ -2463,6 +2463,62 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Reservation",
   data: function data() {
@@ -2470,11 +2526,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       users: null,
       dates: [],
       godziny: [],
+      number: 0,
       message: null
     };
   },
   methods: {
-    getRezerwacje: function getRezerwacje() {
+    getUsers: function getUsers() {
       var _this = this;
 
       axios.get("/api/rezerwacje").then(function (response) {
@@ -2489,17 +2546,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     sortGodz: function sortGodz() {
       var _this2 = this;
 
+      this.godziny = [];
       this.users.forEach(function (user) {
-        _this2.godziny.push(user.godzina);
+        _this2.dates.forEach(function (data) {
+          if (user.data === data) {
+            _this2.godziny.push(user.godzina);
+          }
+        });
       });
-      this.godziny = _toConsumableArray(new Set(this.godziny));
       this.godziny.sort();
+      this.godziny = _toConsumableArray(new Set(this.godziny));
     },
-    setDates: function setDates() {
+    setDates: function setDates(number) {
+      this.dates = [];
       var date = new Date();
       var year = date.getFullYear();
-      var month = date.getMonth() + 1;
-      var day = date.getDate();
+      var month = date.getMonth();
+      var day = date.getDate() + number;
+      var newDate = new Date(year, month, day);
+      year = newDate.getFullYear();
+      month = newDate.getMonth() + 1;
+      day = newDate.getDate();
 
       for (var i = -3; i < 4; i++) {
         var newDay = day + i;
@@ -2515,13 +2582,256 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         this.dates.push(year + "-" + newMonth + "-" + newDay);
       }
+    },
+    prev: function prev() {
+      this.number -= 7;
+      this.setDates(this.number);
+      this.getUsers();
+    },
+    next: function next() {
+      this.number += 7;
+      this.setDates(this.number);
+      this.getUsers();
     }
   },
   mounted: function mounted() {
-    this.getRezerwacje();
+    this.getUsers();
+    this.setDates(this.number);
     this.getMessage();
-    this.setDates();
-    console.log(this.dates[3]);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddZabiegi",
+  data: function data() {
+    return {
+      zabieg: {
+        name: null
+      }
+    };
+  },
+  methods: {
+    checkForm: function checkForm(e) {
+      var _this = this;
+
+      e.preventDefault();
+      axios.post("/api/zabiegi", this.zabieg).then(function () {
+        return _this.$router.push({
+          name: "zabiegi",
+          params: {
+            message: "Pomyślnie dodano rezerwacje."
+          }
+        });
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "EditZabiegi",
+  data: function data() {
+    return {
+      zabieg: {}
+    };
+  },
+  methods: {
+    checkForm: function checkForm(e) {
+      var _this = this;
+
+      e.preventDefault();
+      axios.put("/api/zabiegi/" + this.zabieg.id, this.zabieg).then(function () {
+        return _this.$router.push({
+          name: "zabiegi",
+          params: {
+            message: "Pomyślnie edytowano zabieg."
+          }
+        });
+      });
+    },
+    getZabieg: function getZabieg(id) {
+      var _this2 = this;
+
+      axios.get("/api/zabiegi/" + id).then(function (res) {
+        return _this2.zabieg = res.data;
+      });
+    },
+    removeZabieg: function removeZabieg(id) {
+      var _this3 = this;
+
+      axios["delete"]("/api/zabiegi/" + id).then(function () {
+        return _this3.$router.push({
+          name: "zabiegi",
+          params: {
+            message: "Pomyślnie usunięto zabieg."
+          }
+        });
+      });
+    }
+  },
+  created: function created() {
+    this.getZabieg(this.$route.params.id);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/Zabieg.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/zabiegi/Zabieg.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Zabieg",
+  data: function data() {
+    return {
+      zabiegi: null,
+      message: null
+    };
+  },
+  methods: {
+    getZabiegi: function getZabiegi() {
+      var _this = this;
+
+      axios.get("/api/zabiegi").then(function (response) {
+        return _this.zabiegi = response.data;
+      });
+    },
+    getMessage: function getMessage() {
+      this.message = this.$route.params.message;
+    }
+  },
+  mounted: function mounted() {
+    this.getZabiegi();
+    this.getMessage();
   }
 });
 
@@ -38577,8 +38887,8 @@ var render = function() {
           _vm._v(" "),
           _c(
             "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("\n                Dodaj\n            ")]
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("\n                Edytuj\n            ")]
           )
         ])
       ]
@@ -38607,7 +38917,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "mx-auto" }, [
     _c("h1", { staticClass: "text-center" }, [_vm._v("Rezerwacje.vue")]),
     _vm._v(" "),
     this.message
@@ -38621,28 +38931,97 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row" },
-      [
-        _c(
-          "router-link",
-          { staticClass: "btn btn-success", attrs: { to: "/rezerwacje/add" } },
-          [_vm._v("Dodaj rezerwacje")]
-        )
-      ],
-      1
-    ),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-6 mx-auto my-2 d-flex justify-content-around" },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-secondary",
+              on: { click: _vm.prev }
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-chevron-left",
+                  attrs: {
+                    width: "1rem",
+                    height: "1rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                    }
+                  })
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-success d-flex align-items-center",
+              attrs: { to: "/rezerwacje/add" }
+            },
+            [_vm._v("\n                Dodaj rezerwacje\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-secondary",
+              on: { click: _vm.next }
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-chevron-right",
+                  attrs: {
+                    width: "1rem",
+                    height: "1rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ],
+        1
+      )
+    ]),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-hover" }, [
+    _c("table", { staticClass: "table table-hover text-center" }, [
       _c(
         "thead",
         { staticClass: "thead-dark" },
         [
           _c("th", [_vm._v("Godziny")]),
           _vm._v(" "),
-          _vm._l(_vm.dates, function(data) {
-            return _c("th", { key: data }, [
+          _vm._l(_vm.dates, function(data, i) {
+            return _c("th", { key: i }, [
               _vm._v("\n                " + _vm._s(data) + "\n            ")
             ])
           })
@@ -38652,12 +39031,12 @@ var render = function() {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.godziny, function(godz) {
+        _vm._l(_vm.godziny, function(godz, i) {
           return _c(
             "tr",
-            { key: godz },
+            { key: i },
             [
-              _c("td", [_vm._v(_vm._s(godz))]),
+              _c("td", [_vm._v(_vm._s(godz.substr(0, 5)))]),
               _vm._v(" "),
               _vm._l(_vm.users, function(user) {
                 return user.godzina === godz && user.data === _vm.dates[0]
@@ -38669,7 +39048,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "badge badge-info",
-                            attrs: { to: "#" }
+                            attrs: { to: "/rezerwacje/edit/" + user.id }
                           },
                           [
                             _vm._v(
@@ -38697,7 +39076,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "badge badge-info",
-                            attrs: { to: "#" }
+                            attrs: { to: "/rezerwacje/edit/" + user.id }
                           },
                           [
                             _vm._v(
@@ -38725,7 +39104,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "badge badge-info",
-                            attrs: { to: "#" }
+                            attrs: { to: "/rezerwacje/edit/" + user.id }
                           },
                           [
                             _vm._v(
@@ -38753,7 +39132,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "badge badge-info",
-                            attrs: { to: "#" }
+                            attrs: { to: "/rezerwacje/edit/" + user.id }
                           },
                           [
                             _vm._v(
@@ -38781,7 +39160,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "badge badge-info",
-                            attrs: { to: "#" }
+                            attrs: { to: "/rezerwacje/edit/" + user.id }
                           },
                           [
                             _vm._v(
@@ -38809,7 +39188,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "badge badge-info",
-                            attrs: { to: "#" }
+                            attrs: { to: "/rezerwacje/edit/" + user.id }
                           },
                           [
                             _vm._v(
@@ -38837,7 +39216,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "badge badge-info",
-                            attrs: { to: "#" }
+                            attrs: { to: "/rezerwacje/edit/" + user.id }
                           },
                           [
                             _vm._v(
@@ -38864,6 +39243,282 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=template&id=a2deface&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=template&id=a2deface& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "mx-auto" }, [
+    _c("h1", { staticClass: "text-center" }, [_vm._v("AddZabieg.vue")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "col-4 mx-auto",
+        attrs: { method: "post" },
+        on: { submit: _vm.checkForm }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Nazwa:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.zabieg.name,
+                expression: "zabieg.name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "name", type: "text" },
+            domProps: { value: _vm.zabieg.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.zabieg, "name", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "form-group d-flex justify-content-around" },
+      [
+        _c(
+          "button",
+          { staticClass: "btn btn-warning", attrs: { type: "reset" } },
+          [_vm._v("\n                Reset\n            ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-success", attrs: { type: "submit" } },
+          [_vm._v("\n                Dodaj\n            ")]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=template&id=1c8b4a1e&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=template&id=1c8b4a1e& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "mx-auto" }, [
+    _c("h1", { staticClass: "text-center" }, [_vm._v("EditZabieg.vue")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "col-4 mx-auto",
+        attrs: { method: "post" },
+        on: { submit: _vm.checkForm }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Nazwa:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.zabieg.name,
+                expression: "zabieg.name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "name", type: "text" },
+            domProps: { value: _vm.zabieg.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.zabieg, "name", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group d-flex justify-content-around" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.removeZabieg(_vm.zabieg.id)
+                }
+              }
+            },
+            [_vm._v("\n                Usuń\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("\n                Edytuj\n            ")]
+          )
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/Zabieg.vue?vue&type=template&id=1595c39e&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/zabiegi/Zabieg.vue?vue&type=template&id=1595c39e& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "mx-auto" }, [
+    _c("h1", { staticClass: "text-center" }, [_vm._v("Zabieg.vue")]),
+    _vm._v(" "),
+    this.message
+      ? _c(
+          "p",
+          {
+            staticClass: "alert alert-success text-center",
+            attrs: { role: "alert" }
+          },
+          [_vm._v("\n        " + _vm._s(_vm.message) + "\n    ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-6 mx-auto my-2 d-flex justify-content-around" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-success d-flex align-items-center",
+              attrs: { to: "/zabiegi/add" }
+            },
+            [_vm._v("Dodaj zabieg")]
+          )
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-stripped" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.zabiegi, function(zabieg) {
+          return _c("tr", { key: zabieg.id }, [
+            _c("td", [_vm._v(_vm._s(zabieg.id))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(zabieg.name))]),
+            _vm._v(" "),
+            _c(
+              "td",
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-info",
+                    attrs: { to: "/zabiegi/edit/" + zabieg.id }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Edit\n                    "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        }),
+        0
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nazwa")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Info")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -54530,6 +55185,213 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/zabiegi/AddZabiegi.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/zabiegi/AddZabiegi.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddZabiegi_vue_vue_type_template_id_a2deface___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddZabiegi.vue?vue&type=template&id=a2deface& */ "./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=template&id=a2deface&");
+/* harmony import */ var _AddZabiegi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddZabiegi.vue?vue&type=script&lang=js& */ "./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddZabiegi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddZabiegi_vue_vue_type_template_id_a2deface___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddZabiegi_vue_vue_type_template_id_a2deface___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/zabiegi/AddZabiegi.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddZabiegi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddZabiegi.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddZabiegi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=template&id=a2deface&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=template&id=a2deface& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddZabiegi_vue_vue_type_template_id_a2deface___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddZabiegi.vue?vue&type=template&id=a2deface& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=template&id=a2deface&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddZabiegi_vue_vue_type_template_id_a2deface___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddZabiegi_vue_vue_type_template_id_a2deface___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/zabiegi/EditZabiegi.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/zabiegi/EditZabiegi.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditZabiegi_vue_vue_type_template_id_1c8b4a1e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditZabiegi.vue?vue&type=template&id=1c8b4a1e& */ "./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=template&id=1c8b4a1e&");
+/* harmony import */ var _EditZabiegi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditZabiegi.vue?vue&type=script&lang=js& */ "./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditZabiegi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditZabiegi_vue_vue_type_template_id_1c8b4a1e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditZabiegi_vue_vue_type_template_id_1c8b4a1e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/zabiegi/EditZabiegi.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditZabiegi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditZabiegi.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditZabiegi_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=template&id=1c8b4a1e&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=template&id=1c8b4a1e& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditZabiegi_vue_vue_type_template_id_1c8b4a1e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditZabiegi.vue?vue&type=template&id=1c8b4a1e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/EditZabiegi.vue?vue&type=template&id=1c8b4a1e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditZabiegi_vue_vue_type_template_id_1c8b4a1e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditZabiegi_vue_vue_type_template_id_1c8b4a1e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/zabiegi/Zabieg.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/zabiegi/Zabieg.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Zabieg_vue_vue_type_template_id_1595c39e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Zabieg.vue?vue&type=template&id=1595c39e& */ "./resources/js/components/zabiegi/Zabieg.vue?vue&type=template&id=1595c39e&");
+/* harmony import */ var _Zabieg_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Zabieg.vue?vue&type=script&lang=js& */ "./resources/js/components/zabiegi/Zabieg.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Zabieg_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Zabieg_vue_vue_type_template_id_1595c39e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Zabieg_vue_vue_type_template_id_1595c39e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/zabiegi/Zabieg.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/zabiegi/Zabieg.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/zabiegi/Zabieg.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Zabieg_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Zabieg.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/Zabieg.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Zabieg_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/zabiegi/Zabieg.vue?vue&type=template&id=1595c39e&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/zabiegi/Zabieg.vue?vue&type=template&id=1595c39e& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Zabieg_vue_vue_type_template_id_1595c39e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Zabieg.vue?vue&type=template&id=1595c39e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/Zabieg.vue?vue&type=template&id=1595c39e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Zabieg_vue_vue_type_template_id_1595c39e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Zabieg_vue_vue_type_template_id_1595c39e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -54546,6 +55408,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_reservation_Rezerwacje__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/reservation/Rezerwacje */ "./resources/js/components/reservation/Rezerwacje.vue");
 /* harmony import */ var _components_reservation_AddRezerwacje__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/reservation/AddRezerwacje */ "./resources/js/components/reservation/AddRezerwacje.vue");
 /* harmony import */ var _components_reservation_EditRezerwacje__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/reservation/EditRezerwacje */ "./resources/js/components/reservation/EditRezerwacje.vue");
+/* harmony import */ var _components_zabiegi_Zabieg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/zabiegi/Zabieg */ "./resources/js/components/zabiegi/Zabieg.vue");
+/* harmony import */ var _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/zabiegi/AddZabiegi */ "./resources/js/components/zabiegi/AddZabiegi.vue");
+/* harmony import */ var _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/zabiegi/EditZabiegi */ "./resources/js/components/zabiegi/EditZabiegi.vue");
+
+
+
 
 
 
@@ -54558,7 +55426,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/admin',
     name: "admin",
     component: _components_Admin__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }, {
+  }, //* REZERWACJE
+  {
     path: '/rezerwacje',
     name: "rezerwacje",
     component: _components_reservation_Rezerwacje__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -54570,6 +55439,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/rezerwacje/edit/:id',
     name: "editrezerwacje",
     component: _components_reservation_EditRezerwacje__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }, //* ZABIEGI
+  {
+    path: '/zabiegi',
+    name: "zabiegi",
+    component: _components_zabiegi_Zabieg__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }, {
+    path: '/zabiegi/add',
+    name: "addzabiegi",
+    component: _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }, {
+    path: '/zabiegi/edit/:id',
+    name: "editzabiegi",
+    component: _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_8__["default"]
   }],
   mode: 'history'
 }));

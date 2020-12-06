@@ -68,8 +68,8 @@
                 >
                     Usuń
                 </button>
-                <button type="submit" class="btn btn-success">
-                    Dodaj
+                <button type="submit" class="btn btn-primary">
+                    Edytuj
                 </button>
             </div>
         </form>

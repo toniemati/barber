@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reservation;
+use App\Models\Zabieg;
 use Illuminate\Http\Request;
 
-class ReservationController extends Controller
+class ZabiegController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return Reservation::all();
+        return Zabieg::all();
     }
 
     /**
@@ -24,6 +24,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -34,7 +35,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        Reservation::create($request->all());
+        Zabieg::create($request->all());
     }
 
     /**
@@ -45,18 +46,18 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-        $res = Reservation::findOrFail($id);
+        $zab = Zabieg::findOrFail($id);
 
-        return $res;
+        return $zab;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Reservation  $reservation
+     * @param  \App\Models\Zabieg  $zabieg
      * @return \Illuminate\Http\Response
      */
-    public function edit(Reservation $reservation)
+    public function edit(Zabieg $zabieg)
     {
         //
     }
@@ -70,9 +71,9 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $res = Reservation::findOrFail($id);
+        $zab = Zabieg::findOrFail($id);
 
-        $res->update($request->all());
+        $zab->update($request->all());
     }
 
     /**
@@ -83,8 +84,8 @@ class ReservationController extends Controller
      */
     public function destroy($id)
     {
-        $res = Reservation::findOrFail($id);
+        $zab = Zabieg::findOrFail($id);
 
-        $res->delete();
+        $zab->delete();
     }
 }

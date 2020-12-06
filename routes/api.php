@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('/rezerwacje', 'App\Http\Controllers\ReservationController');
+
+Route::resource('/zabiegi', 'App\Http\Controllers\ZabiegController');

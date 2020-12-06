@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mx-auto">
         <h1 class="text-center">Rezerwacje.vue</h1>
         <p
             v-if="this.message"
@@ -9,26 +9,64 @@
             {{ message }}
         </p>
         <div class="row">
-            <router-link class="btn btn-success" to="/rezerwacje/add"
-                >Dodaj rezerwacje</router-link
-            >
+            <div class="col-6 mx-auto my-2 d-flex justify-content-around">
+                <button @click="prev" class="btn btn-outline-secondary">
+                    <svg
+                        width="1rem"
+                        height="1rem"
+                        viewBox="0 0 16 16"
+                        class="bi bi-chevron-left"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                        />
+                    </svg>
+                </button>
+                <router-link
+                    class="btn btn-success d-flex align-items-center"
+                    to="/rezerwacje/add"
+                >
+                    Dodaj rezerwacje
+                </router-link>
+                <button @click="next" class="btn btn-outline-secondary">
+                    <svg
+                        width="1rem"
+                        height="1rem"
+                        viewBox="0 0 16 16"
+                        class="bi bi-chevron-right"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                        />
+                    </svg>
+                </button>
+            </div>
         </div>
-        <table class="table table-hover">
+        <table class="table table-hover text-center">
             <thead class="thead-dark">
                 <th>Godziny</th>
-                <th v-for="data in dates" :key="data">
+                <th v-for="(data, i) in dates" :key="i">
                     {{ data }}
                 </th>
             </thead>
             <tbody>
-                <tr v-for="godz in godziny" :key="godz">
-                    <td>{{ godz }}</td>
+                <tr v-for="(godz, i) in godziny" :key="i">
+                    <td>{{ godz.substr(0, 5) }}</td>
                     <td
                         v-for="user in users"
                         :key="user.id"
                         v-if="user.godzina === godz && user.data === dates[0]"
                     >
-                        <router-link to="#" class="badge badge-info">
+                        <router-link
+                            :to="'/rezerwacje/edit/' + user.id"
+                            class="badge badge-info"
+                        >
                             {{ user.imie }}
                         </router-link>
                     </td>
@@ -38,7 +76,10 @@
                         :key="user.id"
                         v-if="user.godzina === godz && user.data === dates[1]"
                     >
-                        <router-link to="#" class="badge badge-info">
+                        <router-link
+                            :to="'/rezerwacje/edit/' + user.id"
+                            class="badge badge-info"
+                        >
                             {{ user.imie }}
                         </router-link>
                     </td>
@@ -48,7 +89,10 @@
                         :key="user.id"
                         v-if="user.godzina === godz && user.data === dates[2]"
                     >
-                        <router-link to="#" class="badge badge-info">
+                        <router-link
+                            :to="'/rezerwacje/edit/' + user.id"
+                            class="badge badge-info"
+                        >
                             {{ user.imie }}
                         </router-link>
                     </td>
@@ -58,7 +102,10 @@
                         :key="user.id"
                         v-if="user.godzina === godz && user.data === dates[3]"
                     >
-                        <router-link to="#" class="badge badge-info">
+                        <router-link
+                            :to="'/rezerwacje/edit/' + user.id"
+                            class="badge badge-info"
+                        >
                             {{ user.imie }}
                         </router-link>
                     </td>
@@ -68,7 +115,10 @@
                         :key="user.id"
                         v-if="user.godzina === godz && user.data === dates[4]"
                     >
-                        <router-link to="#" class="badge badge-info">
+                        <router-link
+                            :to="'/rezerwacje/edit/' + user.id"
+                            class="badge badge-info"
+                        >
                             {{ user.imie }}
                         </router-link>
                     </td>
@@ -78,7 +128,10 @@
                         :key="user.id"
                         v-if="user.godzina === godz && user.data === dates[5]"
                     >
-                        <router-link to="#" class="badge badge-info">
+                        <router-link
+                            :to="'/rezerwacje/edit/' + user.id"
+                            class="badge badge-info"
+                        >
                             {{ user.imie }}
                         </router-link>
                     </td>
@@ -88,7 +141,10 @@
                         :key="user.id"
                         v-if="user.godzina === godz && user.data === dates[6]"
                     >
-                        <router-link to="#" class="badge badge-info">
+                        <router-link
+                            :to="'/rezerwacje/edit/' + user.id"
+                            class="badge badge-info"
+                        >
                             {{ user.imie }}
                         </router-link>
                     </td>
@@ -108,12 +164,13 @@
                 users: null,
                 dates: [],
                 godziny: [],
+                number: 0,
                 message: null
             };
         },
 
         methods: {
-            getRezerwacje: function() {
+            getUsers: function() {
                 axios
                     .get("/api/rezerwacje")
                     .then(response =>
@@ -127,18 +184,30 @@
             },
 
             sortGodz: function() {
+                this.godziny = [];
                 this.users.forEach(user => {
-                    this.godziny.push(user.godzina);
+                    this.dates.forEach(data => {
+                        if (user.data === data) {
+                            this.godziny.push(user.godzina);
+                        }
+                    });
                 });
-                this.godziny = [...new Set(this.godziny)];
                 this.godziny.sort();
+                this.godziny = [...new Set(this.godziny)];
             },
 
-            setDates: function() {
+            setDates: function(number) {
+                this.dates = [];
+
                 const date = new Date();
                 let year = date.getFullYear();
-                let month = date.getMonth() + 1;
-                let day = date.getDate();
+                let month = date.getMonth();
+                let day = date.getDate() + number;
+
+                const newDate = new Date(year, month, day);
+                year = newDate.getFullYear();
+                month = newDate.getMonth() + 1;
+                day = newDate.getDate();
 
                 for (let i = -3; i < 4; i++) {
                     const newDay = day + i;
@@ -152,14 +221,25 @@
                     }
                     this.dates.push(year + "-" + newMonth + "-" + newDay);
                 }
+            },
+
+            prev: function() {
+                this.number -= 7;
+                this.setDates(this.number);
+                this.getUsers();
+            },
+
+            next: function() {
+                this.number += 7;
+                this.setDates(this.number);
+                this.getUsers();
             }
         },
 
         mounted: function() {
-            this.getRezerwacje();
+            this.getUsers();
+            this.setDates(this.number);
             this.getMessage();
-            this.setDates();
-            console.log(this.dates[3]);
         }
     };
 </script>
