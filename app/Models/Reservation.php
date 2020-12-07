@@ -10,4 +10,9 @@ class Reservation extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function fryzjer()
+    {
+        return $this->belongsTo(\App\Models\Fryzjer::class);
+    }
 }

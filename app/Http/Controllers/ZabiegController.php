@@ -46,9 +46,20 @@ class ZabiegController extends Controller
      */
     public function show($id)
     {
-        $zab = Zabieg::findOrFail($id);
+        $zab = Zabieg::find($id);
 
         return $zab;
+
+        // if ($zab) {
+        //     return [
+        //         'status' => 'fine',
+        //         'data' => $zab
+        //     ];
+        // } else {
+        //     return [
+        //         'status' => 'fail'
+        //     ];
+        // }
     }
 
     /**

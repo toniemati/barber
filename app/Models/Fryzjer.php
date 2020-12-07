@@ -10,4 +10,9 @@ class Fryzjer extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function rezerwacje()
+    {
+        return $this->hasMany(\App\Models\Reservation::class);
+    }
 }
