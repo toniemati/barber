@@ -17,15 +17,15 @@ Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
         { path: '/admin', name: "admin", component: Admin },
-        //* REZERWACJE
+        //! REZERWACJE
         { path: '/rezerwacje', name: "rezerwacje", component: Rezerwacje },
         { path: '/rezerwacje/add', name: "addrezerwacje", component: AddRezerwacje },
         { path: '/rezerwacje/edit/:id', name: "editrezerwacje", component: EditRezerwacje },
-        //* FRYZJERZY
+        //! FRYZJERZY
         { path: '/fryzjerzy', name: "fryzjerzy", component: Fryzjer },
         { path: '/fryzjerzy/add', name: "addfryzjerzy", component: AddFryzjer },
         { path: '/fryzjerzy/edit/:id', name: "editfryzjerzy", component: EditFryzjer },
-        //* ZABIEGI
+        //! ZABIEGI
         { path: '/zabiegi', name: "zabiegi", component: Zabieg },
         { path: '/zabiegi/add', name: "addzabiegi", component: AddZabiegi },
         { path: '/zabiegi/edit/:id', name: "editzabiegi", component: EditZabiegi },

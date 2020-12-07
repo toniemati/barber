@@ -2164,10 +2164,19 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     removeFryzjer: function removeFryzjer(id) {
-      console.log(id);
+      var _this2 = this;
+
+      axios["delete"]("/api/fryzjerzy/" + id).then(function () {
+        return _this2.$router.push({
+          name: "fryzjerzy",
+          params: {
+            message: "Pomyślnie usunięto fryzjera."
+          }
+        });
+      });
     },
     checkForm: function checkForm(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       e.preventDefault();
       this.errors = {}; //* Sprawdzenie imie
@@ -2194,7 +2203,7 @@ __webpack_require__.r(__webpack_exports__);
       if (Object.keys(this.errors).length) {//* są errory
       } else {
         axios.put("/api/fryzjerzy/" + this.fryzjer.id, this.fryzjer).then(function () {
-          return _this2.$router.push({
+          return _this3.$router.push({
             name: "fryzjerzy",
             params: {
               message: "Pomyślnie edytowano fryzjera."
@@ -57193,7 +57202,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_reservation_EditRezerwacje__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/reservation/EditRezerwacje */ "./resources/js/components/reservation/EditRezerwacje.vue");
 /* harmony import */ var _components_fryzjerzy_Fryzjer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/fryzjerzy/Fryzjer */ "./resources/js/components/fryzjerzy/Fryzjer.vue");
 /* harmony import */ var _components_fryzjerzy_AddFryzjer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/fryzjerzy/AddFryzjer */ "./resources/js/components/fryzjerzy/AddFryzjer.vue");
-/* harmony import */ var _components_fryzjerzy_EditFryzjer__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/fryzjerzy/EditFryzjer */ "./resources/js/components/fryzjerzy/EditFryzjer.vue");
+/* harmony import */ var _components_fryzjerzy_EditFryzjer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/fryzjerzy/EditFryzjer */ "./resources/js/components/fryzjerzy/EditFryzjer.vue");
 /* harmony import */ var _components_zabiegi_Zabieg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/zabiegi/Zabieg */ "./resources/js/components/zabiegi/Zabieg.vue");
 /* harmony import */ var _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/zabiegi/AddZabiegi */ "./resources/js/components/zabiegi/AddZabiegi.vue");
 /* harmony import */ var _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/zabiegi/EditZabiegi */ "./resources/js/components/zabiegi/EditZabiegi.vue");
@@ -57215,7 +57224,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/admin',
     name: "admin",
     component: _components_Admin__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }, //* REZERWACJE
+  }, //! REZERWACJE
   {
     path: '/rezerwacje',
     name: "rezerwacje",
@@ -57228,7 +57237,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/rezerwacje/edit/:id',
     name: "editrezerwacje",
     component: _components_reservation_EditRezerwacje__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }, //* FRYZJERZY
+  }, //! FRYZJERZY
   {
     path: '/fryzjerzy',
     name: "fryzjerzy",
@@ -57240,8 +57249,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/fryzjerzy/edit/:id',
     name: "editfryzjerzy",
-    component: _components_fryzjerzy_EditFryzjer__WEBPACK_IMPORTED_MODULE_12__["default"]
-  }, //* ZABIEGI
+    component: _components_fryzjerzy_EditFryzjer__WEBPACK_IMPORTED_MODULE_8__["default"]
+  }, //! ZABIEGI
   {
     path: '/zabiegi',
     name: "zabiegi",

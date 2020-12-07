@@ -87,7 +87,14 @@
             },
 
             removeFryzjer: function(id) {
-                console.log(id);
+                axios.delete("/api/fryzjerzy/" + id).then(() =>
+                    this.$router.push({
+                        name: "fryzjerzy",
+                        params: {
+                            message: "Pomyślnie usunięto fryzjera."
+                        }
+                    })
+                );
             },
 
             checkForm: function(e) {
