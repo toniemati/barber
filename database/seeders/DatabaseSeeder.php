@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Fryzjer;
 use App\Models\Reservation;
 use App\Models\User;
 use App\Models\Zabieg;
@@ -18,10 +19,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        //* Reservation factory
+        //* FACTORY
         Reservation::factory(10)->create();
-        Zabieg::factory(5)->create();
+        Zabieg::factory(3)->create();
+        Fryzjer::factory(6)->create();
 
+        //* ADMIN USER
         $admin = [
             'name' => 'admin',
             'email' => 'admin@example.com',

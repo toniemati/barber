@@ -58,6 +58,12 @@
                 <p class="text-danger pt-2" v-if="errors.godzina">
                     {{ errors.godzina }}
                 </p>
+                <p
+                    class="text-danger pt-2 font-weight-bold text-center"
+                    v-else-if="errors.busy"
+                >
+                    {{ errors.busy }}
+                </p>
             </div>
 
             <div class="form-group d-flex justify-content-around">
@@ -78,11 +84,13 @@
 
         mounted: function() {
             this.setDate();
+            this.getReservation();
         },
 
         data: function() {
             return {
                 errors: {},
+                reservations: null,
                 user: {
                     imie: null,
                     nazwisko: null,
@@ -97,6 +105,12 @@
         },
 
         methods: {
+            getReservation: function() {
+                axios
+                    .get("/api/rezerwacje")
+                    .then(res => (this.reservations = res.data));
+            },
+
             checkForm: function(e) {
                 e.preventDefault();
 
@@ -132,6 +146,15 @@
                 if (!this.user.godzina) {
                     this.errors.godzina = "Godzina rezerwacji jest wymagan!";
                 }
+
+                //* Sprawdzenie czy termin jest zajęty
+                let godz = this.user.godzina + ":00";
+                this.reservations.forEach(res => {
+                    if (res.data === this.user.data && res.godzina === godz) {
+                        this.errors.busy =
+                            "Ta godzina w wybranym przez ciebie dniu jest zajęta!";
+                    }
+                });
 
                 //* Sprawdzenie czy sa errory, jak nie to dodajemy do bazy
                 if (Object.keys(this.errors).length) {

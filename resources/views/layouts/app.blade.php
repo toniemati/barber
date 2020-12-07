@@ -40,6 +40,9 @@
                             <router-link class="nav-link" to="/rezerwacje">Rezerwacje</router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link class="nav-link" to="/fryzjerzy">Fryzjerzy</router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link class="nav-link" to="/zabiegi">Zabiegi</router-link>
                         </li>
                         <li class="nav-item">

@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Zabieg;
+use App\Models\Fryzjer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ZabiegFactory extends Factory
+class FryzjerFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Zabieg::class;
+    protected $model = Fryzjer::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,10 @@ class ZabiegFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->colorName,
+            'imie' => $this->faker->firstName(),
+            'nazwisko' => $this->faker->lastName(),
+            'pic' => $this->faker->imageUrl(),
+            'opis' => $this->faker->realText(20),
         ];
     }
 }

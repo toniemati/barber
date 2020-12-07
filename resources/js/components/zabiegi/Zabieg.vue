@@ -17,8 +17,8 @@
                 >
             </div>
         </div>
-        <table class="table table-stripped">
-            <thead>
+        <table class="table table-hover text-center">
+            <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
                     <th>Nazwa</th>
