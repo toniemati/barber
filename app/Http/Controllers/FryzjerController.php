@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fryzjer;
+use App\Models\Reservation;
+use App\Models\Zabieg;
 use Illuminate\Http\Request;
 
 class FryzjerController extends Controller
@@ -14,7 +16,14 @@ class FryzjerController extends Controller
      */
     public function index()
     {
-        return Fryzjer::all();
+        $fryzz = Fryzjer::all();
+
+        foreach ($fryzz as $fryz) {
+            $rez = $fryz->rezerwacje;
+            $zab = $fryz->zabieg;
+        }
+
+        return $fryzz;
     }
 
     /**
@@ -47,6 +56,11 @@ class FryzjerController extends Controller
     public function show($id)
     {
         $fryz = Fryzjer::findOrFail($id);
+        $rezz = $fryz->rezerwacje;
+
+        foreach ($rezz as $rez) {
+            $zab = $rez->zabieg;
+        }
 
         return $fryz;
     }

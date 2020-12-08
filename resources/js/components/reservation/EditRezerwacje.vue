@@ -2,7 +2,11 @@
     <div>
         <h1 class="text-center">EditRezerwacje.vue</h1>
 
-        <form method="post" class="col-4 mx-auto" @submit="checkForm">
+        <form
+            method="post"
+            class="col-sm-12 col-md-8 col-lg-4 mx-auto"
+            @submit="checkForm"
+        >
             <div class="form-group">
                 <label for="imie">Imie:</label>
                 <input

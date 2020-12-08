@@ -2015,6 +2015,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddFryzjer",
   data: function data() {
@@ -2147,6 +2151,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EditFryzjer",
   data: function data() {
@@ -2202,6 +2210,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (Object.keys(this.errors).length) {//* są errory
       } else {
+        delete this.fryzjer.rezerwacje;
         axios.put("/api/fryzjerzy/" + this.fryzjer.id, this.fryzjer).then(function () {
           return _this3.$router.push({
             name: "fryzjerzy",
@@ -2229,6 +2238,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2315,6 +2335,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -2599,6 +2623,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -3040,6 +3068,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Reservation",
   created: function created() {
@@ -3125,6 +3155,67 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "RezerwacjeFryzjer",
+  data: function data() {
+    return {
+      fryzjer: {
+        imie: ""
+      }
+    };
+  },
+  methods: {
+    getFryzjer: function getFryzjer(id) {
+      var _this = this;
+
+      axios.get("/api/fryzjerzy/" + id).then(function (res) {
+        return _this.fryzjer = res.data;
+      });
+    }
+  },
+  created: function created() {
+    this.getFryzjer(this.$route.params.id);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=script&lang=js& ***!
@@ -3134,6 +3225,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -3229,6 +3324,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EditZabiegi",
   data: function data() {
@@ -3286,6 +3385,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -39710,7 +39811,7 @@ var render = function() {
     _c(
       "form",
       {
-        staticClass: "col-4 mx-auto",
+        staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
         attrs: { method: "post" },
         on: { submit: _vm.checkForm }
       },
@@ -39895,7 +39996,7 @@ var render = function() {
     _c(
       "form",
       {
-        staticClass: "col-4 mx-auto",
+        staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
         attrs: { method: "post" },
         on: { submit: _vm.checkForm }
       },
@@ -40088,7 +40189,10 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-6 mx-auto my-2 d-flex justify-content-around" },
+        {
+          staticClass:
+            "col-sm-12 col-md-8 col-lg-4 mx-auto my-2 d-flex justify-content-around"
+        },
         [
           _c(
             "router-link",
@@ -40096,7 +40200,7 @@ var render = function() {
               staticClass: "btn btn-success d-flex align-items-center",
               attrs: { to: "/fryzjerzy/add" }
             },
-            [_vm._v("Dodaj fryzjera")]
+            [_vm._v("\n                Dodaj fryzjera\n            ")]
           )
         ],
         1
@@ -40118,37 +40222,56 @@ var render = function() {
                 })
               : _vm._e(),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card-body" },
-              [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(fryzjer.imie))
-                ]),
-                _vm._v(" "),
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(fryzjer.nazwisko))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(fryzjer.opis) +
-                      "\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-primary w-100",
-                    attrs: { to: "/fryzjerzy/edit/" + fryzjer.id }
-                  },
-                  [_vm._v("\n                    Edit\n                ")]
+            _c("div", { staticClass: "card-body" }, [
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(fryzjer.imie))
+              ]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(fryzjer.nazwisko))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(fryzjer.opis) +
+                    "\n                "
                 )
-              ],
-              1
-            )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-sm btn-outline-info mx-auto",
+                      attrs: { to: "/rezerwacje/fryzjer/" + fryzjer.id }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Rezerwacje\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary w-100 mt-2",
+                      attrs: { to: "/fryzjerzy/edit/" + fryzjer.id }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Edit\n                    "
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ])
           ]
         )
       }),
@@ -40184,7 +40307,7 @@ var render = function() {
     _c(
       "form",
       {
-        staticClass: "col-4 mx-auto",
+        staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
         attrs: { method: "post" },
         on: { submit: _vm.checkForm }
       },
@@ -40548,7 +40671,7 @@ var render = function() {
     _c(
       "form",
       {
-        staticClass: "col-4 mx-auto",
+        staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
         attrs: { method: "post" },
         on: { submit: _vm.checkForm }
       },
@@ -40866,7 +40989,10 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-6 mx-auto my-2 d-flex justify-content-around" },
+        {
+          staticClass:
+            "col-sm-12 col-lg-6 mx-auto my-2 d-flex justify-content-around"
+        },
         [
           _c(
             "button",
@@ -41151,6 +41277,75 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=template&id=a23df368&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=template&id=a23df368& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "mx-auto" }, [
+    _c("h1", { staticClass: "text-center" }, [
+      _vm._v("Rezerwacje dla fryzjera " + _vm._s(_vm.fryzjer.imie))
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-hover text-center" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.fryzjer.rezerwacje, function(rez, i) {
+          return _c("tr", { key: i }, [
+            _c("td", [_vm._v(_vm._s(rez.imie))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(rez.nazwisko))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(rez.data))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(rez.godzina))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(rez.zabieg.name))])
+          ])
+        }),
+        0
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Imie")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nazwisko")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Data")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Godzina")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Zabieg")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=template&id=a2deface&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/zabiegi/AddZabiegi.vue?vue&type=template&id=a2deface& ***!
@@ -41172,7 +41367,7 @@ var render = function() {
     _c(
       "form",
       {
-        staticClass: "col-4 mx-auto",
+        staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
         attrs: { method: "post" },
         on: { submit: _vm.checkForm }
       },
@@ -41259,7 +41454,7 @@ var render = function() {
     _c(
       "form",
       {
-        staticClass: "col-4 mx-auto",
+        staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
         attrs: { method: "post" },
         on: { submit: _vm.checkForm }
       },
@@ -41354,7 +41549,10 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-6 mx-auto my-2 d-flex justify-content-around" },
+        {
+          staticClass:
+            "col-sm-12 col-md-8 col-lg-4 mx-auto my-2 d-flex justify-content-around"
+        },
         [
           _c(
             "router-link",
@@ -57330,6 +57528,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/reservation/RezerwacjeFryzjer.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/reservation/RezerwacjeFryzjer.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RezerwacjeFryzjer_vue_vue_type_template_id_a23df368___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RezerwacjeFryzjer.vue?vue&type=template&id=a23df368& */ "./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=template&id=a23df368&");
+/* harmony import */ var _RezerwacjeFryzjer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RezerwacjeFryzjer.vue?vue&type=script&lang=js& */ "./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _RezerwacjeFryzjer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RezerwacjeFryzjer_vue_vue_type_template_id_a23df368___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RezerwacjeFryzjer_vue_vue_type_template_id_a23df368___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/reservation/RezerwacjeFryzjer.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RezerwacjeFryzjer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./RezerwacjeFryzjer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RezerwacjeFryzjer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=template&id=a23df368&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=template&id=a23df368& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RezerwacjeFryzjer_vue_vue_type_template_id_a23df368___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./RezerwacjeFryzjer.vue?vue&type=template&id=a23df368& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reservation/RezerwacjeFryzjer.vue?vue&type=template&id=a23df368&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RezerwacjeFryzjer_vue_vue_type_template_id_a23df368___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RezerwacjeFryzjer_vue_vue_type_template_id_a23df368___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/zabiegi/AddZabiegi.vue":
 /*!********************************************************!*\
   !*** ./resources/js/components/zabiegi/AddZabiegi.vue ***!
@@ -57553,12 +57820,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_reservation_Rezerwacje__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/reservation/Rezerwacje */ "./resources/js/components/reservation/Rezerwacje.vue");
 /* harmony import */ var _components_reservation_AddRezerwacje__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/reservation/AddRezerwacje */ "./resources/js/components/reservation/AddRezerwacje.vue");
 /* harmony import */ var _components_reservation_EditRezerwacje__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/reservation/EditRezerwacje */ "./resources/js/components/reservation/EditRezerwacje.vue");
-/* harmony import */ var _components_fryzjerzy_Fryzjer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/fryzjerzy/Fryzjer */ "./resources/js/components/fryzjerzy/Fryzjer.vue");
-/* harmony import */ var _components_fryzjerzy_AddFryzjer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/fryzjerzy/AddFryzjer */ "./resources/js/components/fryzjerzy/AddFryzjer.vue");
-/* harmony import */ var _components_fryzjerzy_EditFryzjer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/fryzjerzy/EditFryzjer */ "./resources/js/components/fryzjerzy/EditFryzjer.vue");
-/* harmony import */ var _components_zabiegi_Zabieg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/zabiegi/Zabieg */ "./resources/js/components/zabiegi/Zabieg.vue");
-/* harmony import */ var _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/zabiegi/AddZabiegi */ "./resources/js/components/zabiegi/AddZabiegi.vue");
-/* harmony import */ var _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/zabiegi/EditZabiegi */ "./resources/js/components/zabiegi/EditZabiegi.vue");
+/* harmony import */ var _components_reservation_RezerwacjeFryzjer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/reservation/RezerwacjeFryzjer */ "./resources/js/components/reservation/RezerwacjeFryzjer.vue");
+/* harmony import */ var _components_fryzjerzy_Fryzjer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/fryzjerzy/Fryzjer */ "./resources/js/components/fryzjerzy/Fryzjer.vue");
+/* harmony import */ var _components_fryzjerzy_AddFryzjer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/fryzjerzy/AddFryzjer */ "./resources/js/components/fryzjerzy/AddFryzjer.vue");
+/* harmony import */ var _components_fryzjerzy_EditFryzjer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/fryzjerzy/EditFryzjer */ "./resources/js/components/fryzjerzy/EditFryzjer.vue");
+/* harmony import */ var _components_zabiegi_Zabieg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/zabiegi/Zabieg */ "./resources/js/components/zabiegi/Zabieg.vue");
+/* harmony import */ var _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/zabiegi/AddZabiegi */ "./resources/js/components/zabiegi/AddZabiegi.vue");
+/* harmony import */ var _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/zabiegi/EditZabiegi */ "./resources/js/components/zabiegi/EditZabiegi.vue");
+
 
 
 
@@ -57590,32 +57859,36 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/rezerwacje/edit/:id',
     name: "editrezerwacje",
     component: _components_reservation_EditRezerwacje__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }, {
+    path: '/rezerwacje/fryzjer/:id',
+    name: "rezerwacjefryzjer",
+    component: _components_reservation_RezerwacjeFryzjer__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, //! FRYZJERZY
   {
     path: '/fryzjerzy',
     name: "fryzjerzy",
-    component: _components_fryzjerzy_Fryzjer__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _components_fryzjerzy_Fryzjer__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: '/fryzjerzy/add',
     name: "addfryzjerzy",
-    component: _components_fryzjerzy_AddFryzjer__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _components_fryzjerzy_AddFryzjer__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, {
     path: '/fryzjerzy/edit/:id',
     name: "editfryzjerzy",
-    component: _components_fryzjerzy_EditFryzjer__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _components_fryzjerzy_EditFryzjer__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, //! ZABIEGI
   {
     path: '/zabiegi',
     name: "zabiegi",
-    component: _components_zabiegi_Zabieg__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _components_zabiegi_Zabieg__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
     path: '/zabiegi/add',
     name: "addzabiegi",
-    component: _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
     path: '/zabiegi/edit/:id',
     name: "editzabiegi",
-    component: _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_12__["default"]
   }],
   mode: 'history'
 }));

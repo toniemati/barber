@@ -9,12 +9,15 @@
             {{ message }}
         </p>
         <div class="row">
-            <div class="col-6 mx-auto my-2 d-flex justify-content-around">
+            <div
+                class="col-sm-12 col-md-8 col-lg-4 mx-auto my-2 d-flex justify-content-around"
+            >
                 <router-link
                     class="btn btn-success d-flex align-items-center"
                     to="/fryzjerzy/add"
-                    >Dodaj fryzjera</router-link
                 >
+                    Dodaj fryzjera
+                </router-link>
             </div>
         </div>
         <div class="row col-11 d-flex justify-content-around mx-auto">
@@ -35,12 +38,20 @@
                     <p class="card-text">
                         {{ fryzjer.opis }}
                     </p>
-                    <router-link
-                        :to="'/fryzjerzy/edit/' + fryzjer.id"
-                        class="btn btn-primary w-100"
-                    >
-                        Edit
-                    </router-link>
+                    <div class="row">
+                        <router-link
+                            class="btn btn-sm btn-outline-info mx-auto"
+                            :to="`/rezerwacje/fryzjer/${fryzjer.id}`"
+                        >
+                            Rezerwacje
+                        </router-link>
+                        <router-link
+                            :to="'/fryzjerzy/edit/' + fryzjer.id"
+                            class="btn btn-primary w-100 mt-2"
+                        >
+                            Edit
+                        </router-link>
+                    </div>
                 </div>
             </div>
         </div>

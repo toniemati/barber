@@ -2,7 +2,11 @@
     <div class="mx-auto">
         <h1 class="text-center">EditFryzjer.vue</h1>
 
-        <form method="post" class="col-4 mx-auto" @submit="checkForm">
+        <form
+            method="post"
+            class="col-sm-12 col-md-8 col-lg-4 mx-auto"
+            @submit="checkForm"
+        >
             <div class="form-group">
                 <label for="imie">Imie:</label>
                 <input
@@ -128,6 +132,7 @@
                 if (Object.keys(this.errors).length) {
                     //* są errory
                 } else {
+                    delete this.fryzjer.rezerwacje;
                     axios
                         .put("/api/fryzjerzy/" + this.fryzjer.id, this.fryzjer)
                         .then(() =>

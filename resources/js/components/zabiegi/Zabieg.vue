@@ -9,7 +9,9 @@
             {{ message }}
         </p>
         <div class="row">
-            <div class="col-6 mx-auto my-2 d-flex justify-content-around">
+            <div
+                class="col-sm-12 col-md-8 col-lg-4 mx-auto my-2 d-flex justify-content-around"
+            >
                 <router-link
                     class="btn btn-success d-flex align-items-center"
                     to="/zabiegi/add"

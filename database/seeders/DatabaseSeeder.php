@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         //* FACTORY
-        Reservation::factory(20)->create();
-        Zabieg::factory(3)->create();
-        Fryzjer::factory(6)->create();
+        Reservation::factory(50)->create();
+        Zabieg::factory(5)->create();
+        Fryzjer::factory(5)->create();
 
         //* ADMIN USER
         $admin = [

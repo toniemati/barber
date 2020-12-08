@@ -4,6 +4,7 @@ import Admin from './components/Admin';
 import Rezerwacje from './components/reservation/Rezerwacje';
 import AddRezerwacje from './components/reservation/AddRezerwacje';
 import EditRezerwacje from './components/reservation/EditRezerwacje';
+import RezerwacjeFryzjer from './components/reservation/RezerwacjeFryzjer';
 import Fryzjer from './components/fryzjerzy/Fryzjer';
 import AddFryzjer from './components/fryzjerzy/AddFryzjer';
 import EditFryzjer from './components/fryzjerzy/EditFryzjer';
@@ -21,6 +22,7 @@ export default new VueRouter({
         { path: '/rezerwacje', name: "rezerwacje", component: Rezerwacje },
         { path: '/rezerwacje/add', name: "addrezerwacje", component: AddRezerwacje },
         { path: '/rezerwacje/edit/:id', name: "editrezerwacje", component: EditRezerwacje },
+        { path: '/rezerwacje/fryzjer/:id', name: "rezerwacjefryzjer", component: RezerwacjeFryzjer },
         //! FRYZJERZY
         { path: '/fryzjerzy', name: "fryzjerzy", component: Fryzjer },
         { path: '/fryzjerzy/add', name: "addfryzjerzy", component: AddFryzjer },

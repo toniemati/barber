@@ -9,7 +9,9 @@
             {{ message }}
         </p>
         <div class="row">
-            <div class="col-6 mx-auto my-2 d-flex justify-content-around">
+            <div
+                class="col-sm-12 col-lg-6 mx-auto my-2 d-flex justify-content-around"
+            >
                 <button @click="prev" class="btn btn-outline-secondary">
                     <svg
                         width="1rem"

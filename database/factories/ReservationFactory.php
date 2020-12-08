@@ -23,15 +23,15 @@ class ReservationFactory extends Factory
     {
         $godz = ['30', '00'];
 
-        $day = random_int(1, 31);
+        $day = random_int(1, 30);
 
         if ($day < 10) {
             $day = '0' . $day;
         };
 
         return [
-            'fryzjer_id' => random_int(1, 6),
-            'zabieg_id' => random_int(1, 3),
+            'fryzjer_id' => random_int(1, 5),
+            'zabieg_id' => random_int(1, 5),
             'imie' => $this->faker->firstName(),
             'nazwisko' => $this->faker->unique()->lastName,
             'data' => '2020-' . random_int(10, 12) . '-' . $day,
