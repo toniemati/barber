@@ -15,4 +15,9 @@ class Reservation extends Model
     {
         return $this->belongsTo(\App\Models\Fryzjer::class);
     }
+
+    public function zabieg()
+    {
+        return $this->belongsTo(\App\Models\Zabieg::class);
+    }
 }

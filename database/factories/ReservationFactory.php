@@ -31,6 +31,7 @@ class ReservationFactory extends Factory
 
         return [
             'fryzjer_id' => random_int(1, 6),
+            'zabieg_id' => random_int(1, 3),
             'imie' => $this->faker->firstName(),
             'nazwisko' => $this->faker->unique()->lastName,
             'data' => '2020-' . random_int(10, 12) . '-' . $day,

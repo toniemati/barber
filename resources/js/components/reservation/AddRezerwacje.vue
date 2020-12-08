@@ -30,6 +30,48 @@
             </div>
 
             <div class="form-group">
+                <label for="fryzjer">Fryzjer: </label>
+                <select
+                    v-model="user.fryzjer_id"
+                    id="fryzjer"
+                    class="form-control"
+                >
+                    <option selected disabled>Wybierz fryzjera</option>
+                    <option
+                        v-for="(fryzjer, i) in fryzjerzy"
+                        :key="i"
+                        :value="fryzjer.id"
+                    >
+                        {{ fryzjer.imie + " " + fryzjer.nazwisko }}
+                    </option>
+                </select>
+                <p class="text-danger pt-2" v-if="errors.fryzjer">
+                    {{ errors.fryzjer }}
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="zabieg">Zabieg:</label>
+                <select
+                    v-model="user.zabieg_id"
+                    id="zabieg"
+                    class="form-control"
+                >
+                    <option selected disabled>Wybierz zabieg</option>
+                    <option
+                        v-for="(zabieg, i) in zabiegi"
+                        :key="i"
+                        :value="zabieg.id"
+                    >
+                        {{ zabieg.name }}
+                    </option>
+                </select>
+                <p class="text-danger pt-2" v-if="errors.zabieg">
+                    {{ errors.zabieg }}
+                </p>
+            </div>
+
+            <div class="form-group">
                 <label for="data">Data:</label>
                 <input
                     id="data"
@@ -82,21 +124,27 @@
     export default {
         name: "AddRezerwacje",
 
-        mounted: function() {
-            this.setDate();
+        created: function() {
             this.getReservation();
+            this.getFryzjerzy();
+            this.getZabiegi();
+            this.setDate();
         },
 
         data: function() {
             return {
                 errors: {},
                 reservations: null,
+                zabiegi: null,
                 user: {
+                    fryzjer_id: null,
+                    zabieg_id: null,
                     imie: null,
                     nazwisko: null,
                     data: null,
                     godzina: null
                 },
+                fryzjerzy: null,
                 data: {
                     min: null,
                     max: null
@@ -109,6 +157,16 @@
                 axios
                     .get("/api/rezerwacje")
                     .then(res => (this.reservations = res.data));
+            },
+
+            getFryzjerzy: function() {
+                axios
+                    .get("/api/fryzjerzy")
+                    .then(res => (this.fryzjerzy = res.data));
+            },
+
+            getZabiegi: function() {
+                axios.get("/api/zabiegi").then(res => (this.zabiegi = res.data));
             },
 
             checkForm: function(e) {
@@ -137,6 +195,16 @@
                         this.errors.nazwisko =
                             "Nazwisko musić mieć co najmniej 3 znaki!";
                     }
+                }
+
+                //* Sprawdzenie fryzjera
+                if (!this.user.fryzjer_id) {
+                    this.errors.fryzjer = "Należy wybrać fryzjera!";
+                }
+
+                //* Sprawdzenie zabiegu
+                if (!this.user.zabieg_id) {
+                    this.errors.zabieg = "Należy wybrać zabieg!";
                 }
 
                 //* Sprawdzenie daty i godziny

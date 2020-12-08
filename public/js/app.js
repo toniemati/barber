@@ -2395,22 +2395,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddRezerwacje",
-  mounted: function mounted() {
-    this.setDate();
+  created: function created() {
     this.getReservation();
+    this.getFryzjerzy();
+    this.getZabiegi();
+    this.setDate();
   },
   data: function data() {
     return {
       errors: {},
       reservations: null,
+      zabiegi: null,
       user: {
+        fryzjer_id: null,
+        zabieg_id: null,
         imie: null,
         nazwisko: null,
         data: null,
         godzina: null
       },
+      fryzjerzy: null,
       data: {
         min: null,
         max: null
@@ -2425,8 +2473,22 @@ __webpack_require__.r(__webpack_exports__);
         return _this.reservations = res.data;
       });
     },
-    checkForm: function checkForm(e) {
+    getFryzjerzy: function getFryzjerzy() {
       var _this2 = this;
+
+      axios.get("/api/fryzjerzy").then(function (res) {
+        return _this2.fryzjerzy = res.data;
+      });
+    },
+    getZabiegi: function getZabiegi() {
+      var _this3 = this;
+
+      axios.get("/api/zabiegi").then(function (res) {
+        return _this3.zabiegi = res.data;
+      });
+    },
+    checkForm: function checkForm(e) {
+      var _this4 = this;
 
       e.preventDefault();
       this.errors = {}; //* Sprawdzenie imie
@@ -2448,6 +2510,16 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           this.errors.nazwisko = "Nazwisko musić mieć co najmniej 3 znaki!";
         }
+      } //* Sprawdzenie fryzjera
+
+
+      if (!this.user.fryzjer_id) {
+        this.errors.fryzjer = "Należy wybrać fryzjera!";
+      } //* Sprawdzenie zabiegu
+
+
+      if (!this.user.zabieg_id) {
+        this.errors.zabieg = "Należy wybrać zabieg!";
       } //* Sprawdzenie daty i godziny
 
 
@@ -2462,15 +2534,15 @@ __webpack_require__.r(__webpack_exports__);
 
       var godz = this.user.godzina + ":00";
       this.reservations.forEach(function (res) {
-        if (res.data === _this2.user.data && res.godzina === godz) {
-          _this2.errors.busy = "Ta godzina w wybranym przez ciebie dniu jest zajęta!";
+        if (res.data === _this4.user.data && res.godzina === godz) {
+          _this4.errors.busy = "Ta godzina w wybranym przez ciebie dniu jest zajęta!";
         }
       }); //* Sprawdzenie czy sa errory, jak nie to dodajemy do bazy
 
       if (Object.keys(this.errors).length) {// console.log("sa err");
       } else {
         axios.post("/api/rezerwacje", this.user).then(function () {
-          return _this2.$router.push({
+          return _this4.$router.push({
             name: "rezerwacje",
             params: {
               message: "Pomyślnie dodano rezerwacje."
@@ -2605,15 +2677,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddRezerwacje",
-  mounted: function mounted() {
-    this.setDate();
-  },
   data: function data() {
     return {
       errors: {},
       user: {},
+      fryzjerzy: null,
+      zabiegi: null,
       data: {
         min: null,
         max: null
@@ -2658,6 +2763,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if (Object.keys(this.errors).length) {// console.log("sa err");
       } else {
+        delete this.user.fryzjer;
+        delete this.user.zabieg;
         axios.put("/api/rezerwacje/" + this.user.id, this.user).then(function () {
           return _this.$router.push({
             name: "rezerwacje",
@@ -2720,10 +2827,27 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       });
+    },
+    getFryzjerzy: function getFryzjerzy() {
+      var _this4 = this;
+
+      axios.get("/api/fryzjerzy").then(function (res) {
+        return _this4.fryzjerzy = res.data;
+      });
+    },
+    getZabiegi: function getZabiegi() {
+      var _this5 = this;
+
+      axios.get("/api/zabiegi").then(function (res) {
+        return _this5.zabiegi = res.data;
+      });
     }
   },
   created: function created() {
     this.getReservation(this.$route.params.id);
+    this.getFryzjerzy();
+    this.getZabiegi();
+    this.setDate();
   }
 });
 
@@ -2918,9 +3042,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Reservation",
+  created: function created() {
+    this.getUsers();
+    this.setDates(this.number);
+    this.getMessage();
+  },
   data: function data() {
     return {
       users: null,
+      fryzjerzy: null,
       dates: [],
       godziny: [],
       number: 0,
@@ -2990,11 +3120,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.setDates(this.number);
       this.getUsers();
     }
-  },
-  mounted: function mounted() {
-    this.getUsers();
-    this.setDates(this.number);
-    this.getMessage();
   }
 });
 
@@ -3226,7 +3351,7 @@ __webpack_require__.r(__webpack_exports__);
       this.message = this.$route.params.message;
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.getZabiegi();
     this.getMessage();
   }
@@ -40137,6 +40262,140 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "fryzjer" } }, [_vm._v("Fryzjer: ")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.user.fryzjer_id,
+                  expression: "user.fryzjer_id"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "fryzjer" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.user,
+                    "fryzjer_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { selected: "", disabled: "" } }, [
+                _vm._v("Wybierz fryzjera")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.fryzjerzy, function(fryzjer, i) {
+                return _c(
+                  "option",
+                  { key: i, domProps: { value: fryzjer.id } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(fryzjer.imie + " " + fryzjer.nazwisko) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.errors.fryzjer
+            ? _c("p", { staticClass: "text-danger pt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.fryzjer) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "zabieg" } }, [_vm._v("Zabieg:")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.user.zabieg_id,
+                  expression: "user.zabieg_id"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "zabieg" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.user,
+                    "zabieg_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { selected: "", disabled: "" } }, [
+                _vm._v("Wybierz zabieg")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.zabiegi, function(zabieg, i) {
+                return _c(
+                  "option",
+                  { key: i, domProps: { value: zabieg.id } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(zabieg.name) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.errors.zabieg
+            ? _c("p", { staticClass: "text-danger pt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.zabieg) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "data" } }, [_vm._v("Data:")]),
           _vm._v(" "),
           _c("input", {
@@ -40364,6 +40623,100 @@ var render = function() {
                 )
               ])
             : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "fryzjer" } }, [_vm._v("Fryzjer: ")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.user.fryzjer_id,
+                  expression: "user.fryzjer_id"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "fryzjer" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.user,
+                    "fryzjer_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.fryzjerzy, function(fryzjer, i) {
+              return _c("option", { key: i, domProps: { value: fryzjer.id } }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(fryzjer.imie + " " + fryzjer.nazwisko) +
+                    "\n                "
+                )
+              ])
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "zabieg" } }, [_vm._v("Zabieg:")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.user.zabieg_id,
+                  expression: "user.zabieg_id"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "zabieg" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.user,
+                    "zabieg_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.zabiegi, function(zabieg, i) {
+              return _c("option", { key: i, domProps: { value: zabieg.id } }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(zabieg.name) +
+                    "\n                "
+                )
+              ])
+            }),
+            0
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [

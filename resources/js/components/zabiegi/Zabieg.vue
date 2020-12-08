@@ -66,7 +66,7 @@
             }
         },
 
-        mounted: function() {
+        created: function() {
             this.getZabiegi();
             this.getMessage();
         }

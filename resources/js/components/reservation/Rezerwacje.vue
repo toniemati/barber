@@ -168,9 +168,16 @@
     export default {
         name: "Reservation",
 
+        created: function() {
+            this.getUsers();
+            this.setDates(this.number);
+            this.getMessage();
+        },
+
         data: function() {
             return {
                 users: null,
+                fryzjerzy: null,
                 dates: [],
                 godziny: [],
                 number: 0,
@@ -243,12 +250,6 @@
                 this.setDates(this.number);
                 this.getUsers();
             }
-        },
-
-        mounted: function() {
-            this.getUsers();
-            this.setDates(this.number);
-            this.getMessage();
         }
     };
 </script>

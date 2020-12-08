@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         //* FACTORY
-        Reservation::factory(10)->create();
+        Reservation::factory(20)->create();
         Zabieg::factory(3)->create();
         Fryzjer::factory(6)->create();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fryzjer;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,14 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return Reservation::all();
+        $rezz = Reservation::all();
+
+        foreach ($rezz as $rez) {
+            $fryzjer = $rez->fryzjer;
+            $zabieg = $rez->zabieg;
+        }
+
+        return $rezz;
     }
 
     /**
@@ -46,6 +54,8 @@ class ReservationController extends Controller
     public function show($id)
     {
         $res = Reservation::findOrFail($id);
+        $fry = $res->fryzjer;
+        $zab = $res->zabieg;
 
         return $res;
     }

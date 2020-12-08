@@ -30,6 +30,40 @@
             </div>
 
             <div class="form-group">
+                <label for="fryzjer">Fryzjer: </label>
+                <select
+                    v-model="user.fryzjer_id"
+                    id="fryzjer"
+                    class="form-control"
+                >
+                    <option
+                        v-for="(fryzjer, i) in fryzjerzy"
+                        :key="i"
+                        :value="fryzjer.id"
+                    >
+                        {{ fryzjer.imie + " " + fryzjer.nazwisko }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="zabieg">Zabieg:</label>
+                <select
+                    v-model="user.zabieg_id"
+                    id="zabieg"
+                    class="form-control"
+                >
+                    <option
+                        v-for="(zabieg, i) in zabiegi"
+                        :key="i"
+                        :value="zabieg.id"
+                    >
+                        {{ zabieg.name }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label for="data">Data:</label>
                 <input
                     id="data"
@@ -80,14 +114,12 @@
     export default {
         name: "AddRezerwacje",
 
-        mounted: function() {
-            this.setDate();
-        },
-
         data: function() {
             return {
                 errors: {},
                 user: {},
+                fryzjerzy: null,
+                zabiegi: null,
                 data: {
                     min: null,
                     max: null
@@ -136,6 +168,9 @@
                 if (Object.keys(this.errors).length) {
                     // console.log("sa err");
                 } else {
+                    delete this.user.fryzjer;
+                    delete this.user.zabieg;
+
                     axios
                         .put("/api/rezerwacje/" + this.user.id, this.user)
                         .then(() =>
@@ -194,11 +229,24 @@
                         }
                     })
                 );
+            },
+
+            getFryzjerzy: function() {
+                axios
+                    .get("/api/fryzjerzy")
+                    .then(res => (this.fryzjerzy = res.data));
+            },
+
+            getZabiegi: function() {
+                axios.get("/api/zabiegi").then(res => (this.zabiegi = res.data));
             }
         },
 
         created: function() {
             this.getReservation(this.$route.params.id);
+            this.getFryzjerzy();
+            this.getZabiegi();
+            this.setDate();
         }
     };
 </script>
