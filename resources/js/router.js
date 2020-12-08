@@ -11,6 +11,7 @@ import EditFryzjer from './components/fryzjerzy/EditFryzjer';
 import Zabieg from './components/zabiegi/Zabieg';
 import AddZabiegi from './components/zabiegi/AddZabiegi';
 import EditZabiegi from './components/zabiegi/EditZabiegi';
+import Cennik from './components/cennik/Cennik';
 
 
 Vue.use(VueRouter);
@@ -31,6 +32,8 @@ export default new VueRouter({
         { path: '/zabiegi', name: "zabiegi", component: Zabieg },
         { path: '/zabiegi/add', name: "addzabiegi", component: AddZabiegi },
         { path: '/zabiegi/edit/:id', name: "editzabiegi", component: EditZabiegi },
+        //! CENNIK
+        { path: '/cennik', name: 'cennik', component: Cennik },
 
     ],
     mode: 'history'

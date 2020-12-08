@@ -1940,6 +1940,97 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/Cennik.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cennik/Cennik.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Cennik",
+  data: function data() {
+    return {
+      cenniki: null,
+      zabiegi: null,
+      fryzjerzy: null
+    };
+  },
+  methods: {
+    getCenniki: function getCenniki() {
+      var _this = this;
+
+      axios.get("/api/cennik").then(function (res) {
+        return _this.cenniki = res.data;
+      });
+    },
+    getZabiegi: function getZabiegi() {
+      var _this2 = this;
+
+      axios.get("/api/zabiegi").then(function (res) {
+        return _this2.zabiegi = res.data;
+      });
+    },
+    getFryzjerzy: function getFryzjerzy() {
+      var _this3 = this;
+
+      axios.get("/api/fryzjerzy").then(function (res) {
+        return _this3.fryzjerzy = res.data;
+      });
+    }
+  },
+  created: function created() {
+    this.getCenniki();
+    this.getZabiegi();
+    this.getFryzjerzy();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/fryzjerzy/AddFryzjer.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/fryzjerzy/AddFryzjer.vue?vue&type=script&lang=js& ***!
@@ -2911,6 +3002,24 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39808,6 +39917,100 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/Cennik.vue?vue&type=template&id=745c1658&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cennik/Cennik.vue?vue&type=template&id=745c1658& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "mx-auto" }, [
+    _c("h1", { staticClass: "text-center" }, [_vm._v("Cennik.vue")]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-hover text-center" }, [
+      _c("thead", { staticClass: "thead-dark" }, [
+        _c(
+          "tr",
+          [
+            _c("th", [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-calendar",
+                  attrs: {
+                    width: "1em",
+                    height: "1em",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"
+                    }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.fryzjerzy, function(fryzjer, i) {
+              return _c("th", { key: i }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(fryzjer.imie + " " + fryzjer.nazwisko) +
+                    "\n                "
+                )
+              ])
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.zabiegi, function(zabieg, i) {
+          return _c(
+            "tr",
+            { key: i },
+            [
+              _c("td", [_vm._v(_vm._s(zabieg.name))]),
+              _vm._v(" "),
+              _vm._l(_vm.cenniki, function(cennik, i) {
+                return _c("td", { key: i }, [
+                  cennik.zabieg_id === zabieg.id
+                    ? _c("span", [_vm._v(_vm._s(cennik.cena))])
+                    : _vm._e()
+                ])
+              })
+            ],
+            2
+          )
+        }),
+        0
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/fryzjerzy/AddFryzjer.vue?vue&type=template&id=5af0c69a&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/fryzjerzy/AddFryzjer.vue?vue&type=template&id=5af0c69a& ***!
@@ -41096,7 +41299,38 @@ var render = function() {
         _c(
           "tr",
           [
-            _c("th", [_vm._v("Godziny")]),
+            _c("th", [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-clock",
+                  attrs: {
+                    width: "1em",
+                    height: "1em",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm8-7A8 8 0 1 1 0 8a8 8 0 0 1 16 0z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"
+                    }
+                  })
+                ]
+              )
+            ]),
             _vm._v(" "),
             _vm._l(_vm.dates, function(data, i) {
               return _c("th", { key: i }, [
@@ -57099,6 +57333,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/cennik/Cennik.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/cennik/Cennik.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Cennik_vue_vue_type_template_id_745c1658___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Cennik.vue?vue&type=template&id=745c1658& */ "./resources/js/components/cennik/Cennik.vue?vue&type=template&id=745c1658&");
+/* harmony import */ var _Cennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Cennik.vue?vue&type=script&lang=js& */ "./resources/js/components/cennik/Cennik.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Cennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Cennik_vue_vue_type_template_id_745c1658___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Cennik_vue_vue_type_template_id_745c1658___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/cennik/Cennik.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/cennik/Cennik.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/cennik/Cennik.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Cennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Cennik.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/Cennik.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Cennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/cennik/Cennik.vue?vue&type=template&id=745c1658&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/cennik/Cennik.vue?vue&type=template&id=745c1658& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cennik_vue_vue_type_template_id_745c1658___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Cennik.vue?vue&type=template&id=745c1658& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/Cennik.vue?vue&type=template&id=745c1658&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cennik_vue_vue_type_template_id_745c1658___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cennik_vue_vue_type_template_id_745c1658___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/fryzjerzy/AddFryzjer.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/components/fryzjerzy/AddFryzjer.vue ***!
@@ -57848,6 +58151,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_zabiegi_Zabieg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/zabiegi/Zabieg */ "./resources/js/components/zabiegi/Zabieg.vue");
 /* harmony import */ var _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/zabiegi/AddZabiegi */ "./resources/js/components/zabiegi/AddZabiegi.vue");
 /* harmony import */ var _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/zabiegi/EditZabiegi */ "./resources/js/components/zabiegi/EditZabiegi.vue");
+/* harmony import */ var _components_cennik_Cennik__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/cennik/Cennik */ "./resources/js/components/cennik/Cennik.vue");
+
 
 
 
@@ -57910,6 +58215,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/zabiegi/edit/:id',
     name: "editzabiegi",
     component: _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_12__["default"]
+  }, //! CENNIK
+  {
+    path: '/cennik',
+    name: 'cennik',
+    component: _components_cennik_Cennik__WEBPACK_IMPORTED_MODULE_13__["default"]
   }],
   mode: 'history'
 }));

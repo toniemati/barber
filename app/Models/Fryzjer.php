@@ -15,4 +15,9 @@ class Fryzjer extends Model
     {
         return $this->hasMany(\App\Models\Reservation::class);
     }
+
+    public function cenniki()
+    {
+        return $this->hasMany(\App\Models\Cennik::class);
+    }
 }
