@@ -21,17 +21,25 @@
                         </svg>
                     </th>
                     <th v-for="(fryzjer, i) in fryzjerzy" :key="i">
-                        {{ fryzjer.imie + " " + fryzjer.nazwisko }}
+                        {{
+                            fryzjer.imie.substr(0, 1) + ". " + fryzjer.nazwisko
+                        }}
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(zabieg, i) in zabiegi" :key="i">
                     <td>{{ zabieg.name }}</td>
-                    <td v-for="(cennik, i) in cenniki" :key="i">
-                        <span v-if="cennik.zabieg_id === zabieg.id">{{
-                            cennik.cena
-                        }}</span>
+                    <td v-for="(fryzjer, idx) in fryzjerzy" :key="idx">
+                        <span v-for="cennik in cenniki" :key="cennik.id">
+                            <span
+                                v-if="
+                                    cennik.zabieg_id === zabieg.id &&
+                                        cennik.fryzjer_id === fryzjer.id
+                                "
+                                >{{ cennik.cena }}</span
+                            >
+                        </span>
                     </td>
                 </tr>
             </tbody>

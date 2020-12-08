@@ -81,103 +81,18 @@
             <tbody>
                 <tr v-for="(godz, i) in godziny" :key="i">
                     <td>{{ godz.substr(0, 5) }}</td>
-                    <td>
-                        <!-- Day 1 -->
-                        <router-link
-                            :to="'/rezerwacje/edit/' + user.id"
-                            class="badge badge-info"
-                            v-for="(user, i) in users"
-                            :key="i"
-                            v-if="
-                                user.godzina === godz && user.data === dates[0]
-                            "
-                        >
-                            {{ user.imie }}
-                        </router-link>
-                    </td>
-                    <td>
-                        <!-- Day 2 -->
-                        <router-link
-                            :to="'/rezerwacje/edit/' + user.id"
-                            class="badge badge-info"
-                            v-for="(user, i) in users"
-                            :key="i"
-                            v-if="
-                                user.godzina === godz && user.data === dates[1]
-                            "
-                        >
-                            {{ user.imie }}
-                        </router-link>
-                    </td>
-                    <td>
-                        <!-- Day 3 -->
-                        <router-link
-                            :to="'/rezerwacje/edit/' + user.id"
-                            class="badge badge-info"
-                            v-for="(user, i) in users"
-                            :key="i"
-                            v-if="
-                                user.godzina === godz && user.data === dates[2]
-                            "
-                        >
-                            {{ user.imie }}
-                        </router-link>
-                    </td>
-                    <td>
-                        <!-- Day 4 -->
-                        <router-link
-                            :to="'/rezerwacje/edit/' + user.id"
-                            class="badge badge-info"
-                            v-for="(user, i) in users"
-                            :key="i"
-                            v-if="
-                                user.godzina === godz && user.data === dates[3]
-                            "
-                        >
-                            {{ user.imie }}
-                        </router-link>
-                    </td>
-                    <td>
-                        <!-- Day 5 -->
-                        <router-link
-                            :to="'/rezerwacje/edit/' + user.id"
-                            class="badge badge-info"
-                            v-for="(user, i) in users"
-                            :key="i"
-                            v-if="
-                                user.godzina === godz && user.data === dates[4]
-                            "
-                        >
-                            {{ user.imie }}
-                        </router-link>
-                    </td>
-                    <td>
-                        <!-- Day 6 -->
-                        <router-link
-                            :to="'/rezerwacje/edit/' + user.id"
-                            class="badge badge-info"
-                            v-for="(user, i) in users"
-                            :key="i"
-                            v-if="
-                                user.godzina === godz && user.data === dates[5]
-                            "
-                        >
-                            {{ user.imie }}
-                        </router-link>
-                    </td>
-                    <td>
-                        <!-- Day 7 -->
-                        <router-link
-                            :to="'/rezerwacje/edit/' + user.id"
-                            class="badge badge-info"
-                            v-for="(user, i) in users"
-                            :key="i"
-                            v-if="
-                                user.godzina === godz && user.data === dates[6]
-                            "
-                        >
-                            {{ user.imie }}
-                        </router-link>
+                    <td v-for="(data, idx) in dates" :key="idx">
+                        <span v-for="(user, idx) in users" :key="idx">
+                            <router-link
+                                :to="'/rezerwacje/edit/' + user.id"
+                                class="badge badge-info"
+                                v-if="
+                                    user.data === data && user.godzina === godz
+                                "
+                            >
+                                {{ user.imie }}
+                            </router-link>
+                        </span>
                     </td>
                 </tr>
             </tbody>

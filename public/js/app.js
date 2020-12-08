@@ -1990,6 +1990,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Cennik",
   data: function data() {
@@ -3002,91 +3010,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -39969,7 +39892,9 @@ var render = function() {
               return _c("th", { key: i }, [
                 _vm._v(
                   "\n                    " +
-                    _vm._s(fryzjer.imie + " " + fryzjer.nazwisko) +
+                    _vm._s(
+                      fryzjer.imie.substr(0, 1) + ". " + fryzjer.nazwisko
+                    ) +
                     "\n                "
                 )
               ])
@@ -39988,12 +39913,20 @@ var render = function() {
             [
               _c("td", [_vm._v(_vm._s(zabieg.name))]),
               _vm._v(" "),
-              _vm._l(_vm.cenniki, function(cennik, i) {
-                return _c("td", { key: i }, [
-                  cennik.zabieg_id === zabieg.id
-                    ? _c("span", [_vm._v(_vm._s(cennik.cena))])
-                    : _vm._e()
-                ])
+              _vm._l(_vm.fryzjerzy, function(fryzjer, idx) {
+                return _c(
+                  "td",
+                  { key: idx },
+                  _vm._l(_vm.cenniki, function(cennik) {
+                    return _c("span", { key: cennik.id }, [
+                      cennik.zabieg_id === zabieg.id &&
+                      cennik.fryzjer_id === fryzjer.id
+                        ? _c("span", [_vm._v(_vm._s(cennik.cena))])
+                        : _vm._e()
+                    ])
+                  }),
+                  0
+                )
               })
             ],
             2
@@ -41347,177 +41280,47 @@ var render = function() {
       _c(
         "tbody",
         _vm._l(_vm.godziny, function(godz, i) {
-          return _c("tr", { key: i }, [
-            _c("td", [_vm._v(_vm._s(godz.substr(0, 5)))]),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(_vm.users, function(user, i) {
-                return user.godzina === godz && user.data === _vm.dates[0]
-                  ? _c(
-                      "router-link",
-                      {
-                        key: i,
-                        staticClass: "badge badge-info",
-                        attrs: { to: "/rezerwacje/edit/" + user.id }
-                      },
+          return _c(
+            "tr",
+            { key: i },
+            [
+              _c("td", [_vm._v(_vm._s(godz.substr(0, 5)))]),
+              _vm._v(" "),
+              _vm._l(_vm.dates, function(data, idx) {
+                return _c(
+                  "td",
+                  { key: idx },
+                  _vm._l(_vm.users, function(user, idx) {
+                    return _c(
+                      "span",
+                      { key: idx },
                       [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(user.imie) +
-                            "\n                    "
-                        )
-                      ]
+                        user.data === data && user.godzina === godz
+                          ? _c(
+                              "router-link",
+                              {
+                                staticClass: "badge badge-info",
+                                attrs: { to: "/rezerwacje/edit/" + user.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(user.imie) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ],
+                      1
                     )
-                  : _vm._e()
-              }),
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(_vm.users, function(user, i) {
-                return user.godzina === godz && user.data === _vm.dates[1]
-                  ? _c(
-                      "router-link",
-                      {
-                        key: i,
-                        staticClass: "badge badge-info",
-                        attrs: { to: "/rezerwacje/edit/" + user.id }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(user.imie) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              }),
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(_vm.users, function(user, i) {
-                return user.godzina === godz && user.data === _vm.dates[2]
-                  ? _c(
-                      "router-link",
-                      {
-                        key: i,
-                        staticClass: "badge badge-info",
-                        attrs: { to: "/rezerwacje/edit/" + user.id }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(user.imie) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              }),
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(_vm.users, function(user, i) {
-                return user.godzina === godz && user.data === _vm.dates[3]
-                  ? _c(
-                      "router-link",
-                      {
-                        key: i,
-                        staticClass: "badge badge-info",
-                        attrs: { to: "/rezerwacje/edit/" + user.id }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(user.imie) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              }),
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(_vm.users, function(user, i) {
-                return user.godzina === godz && user.data === _vm.dates[4]
-                  ? _c(
-                      "router-link",
-                      {
-                        key: i,
-                        staticClass: "badge badge-info",
-                        attrs: { to: "/rezerwacje/edit/" + user.id }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(user.imie) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              }),
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(_vm.users, function(user, i) {
-                return user.godzina === godz && user.data === _vm.dates[5]
-                  ? _c(
-                      "router-link",
-                      {
-                        key: i,
-                        staticClass: "badge badge-info",
-                        attrs: { to: "/rezerwacje/edit/" + user.id }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(user.imie) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              }),
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "td",
-              _vm._l(_vm.users, function(user, i) {
-                return user.godzina === godz && user.data === _vm.dates[6]
-                  ? _c(
-                      "router-link",
-                      {
-                        key: i,
-                        staticClass: "badge badge-info",
-                        attrs: { to: "/rezerwacje/edit/" + user.id }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(user.imie) +
-                            "\n                    "
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              }),
-              1
-            )
-          ])
+                  }),
+                  0
+                )
+              })
+            ],
+            2
+          )
         }),
         0
       )
