@@ -3,7 +3,8 @@
         <h1 class="text-center">Rezerwacje.vue</h1>
         <p
             v-if="this.message"
-            class="alert alert-success text-center"
+            class="alert text-center"
+            v-bind:class="type"
             role="alert"
         >
             {{ message }}
@@ -183,7 +184,8 @@
                 dates: [],
                 godziny: [],
                 number: 0,
-                message: null
+                message: null,
+                type: null
             };
         },
 
@@ -199,6 +201,7 @@
 
             getMessage: function() {
                 this.message = this.$route.params.message;
+                this.type = this.$route.params.type;
             },
 
             sortGodz: function() {

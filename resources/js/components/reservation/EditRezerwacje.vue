@@ -181,6 +181,7 @@
                             this.$router.push({
                                 name: "rezerwacje",
                                 params: {
+                                    type: "alert-warning",
                                     message: "Pomyślnie edytowano rezerwacje."
                                 }
                             })
@@ -229,6 +230,7 @@
                     this.$router.push({
                         name: "rezerwacje",
                         params: {
+                            type: "alert-danger",
                             message: "Pomyślnie usunięto rezerwacje."
                         }
                     })

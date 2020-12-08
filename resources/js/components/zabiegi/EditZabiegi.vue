@@ -50,6 +50,7 @@
                     this.$router.push({
                         name: "zabiegi",
                         params: {
+                            type: "alert-warning",
                             message: "Pomyślnie edytowano zabieg."
                         }
                     })
@@ -67,6 +68,7 @@
                     this.$router.push({
                         name: "zabiegi",
                         params: {
+                            type: "alert-danger",
                             message: "Pomyślnie usunięto zabieg."
                         }
                     })

@@ -48,6 +48,7 @@
                     this.$router.push({
                         name: "zabiegi",
                         params: {
+                            type: "alert-success",
                             message: "Pomyślnie dodano rezerwacje."
                         }
                     })

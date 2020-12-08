@@ -236,6 +236,7 @@
                         this.$router.push({
                             name: "rezerwacje",
                             params: {
+                                type: "alert-success",
                                 message: "Pomyślnie dodano rezerwacje."
                             }
                         })

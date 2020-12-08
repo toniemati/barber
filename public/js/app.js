@@ -2061,6 +2061,7 @@ __webpack_require__.r(__webpack_exports__);
           return _this.$router.push({
             name: "fryzjerzy",
             params: {
+              type: "alert-success",
               message: "Pomyślnie dodano fryzjera."
             }
           });
@@ -2178,6 +2179,7 @@ __webpack_require__.r(__webpack_exports__);
         return _this2.$router.push({
           name: "fryzjerzy",
           params: {
+            type: "alert-danger",
             message: "Pomyślnie usunięto fryzjera."
           }
         });
@@ -2215,6 +2217,7 @@ __webpack_require__.r(__webpack_exports__);
           return _this3.$router.push({
             name: "fryzjerzy",
             params: {
+              type: "alert-warning",
               message: "Pomyślnie edytowano fryzjera."
             }
           });
@@ -2298,12 +2301,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Fryzjer",
   data: function data() {
     return {
       fryzjerzy: null,
-      message: null
+      message: null,
+      type: null
     };
   },
   methods: {
@@ -2316,6 +2321,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     getMessage: function getMessage() {
       this.message = this.$route.params.message;
+      this.type = this.$route.params.type;
     }
   },
   created: function created() {
@@ -2569,6 +2575,7 @@ __webpack_require__.r(__webpack_exports__);
           return _this4.$router.push({
             name: "rezerwacje",
             params: {
+              type: "alert-success",
               message: "Pomyślnie dodano rezerwacje."
             }
           });
@@ -2797,6 +2804,7 @@ __webpack_require__.r(__webpack_exports__);
           return _this.$router.push({
             name: "rezerwacje",
             params: {
+              type: "alert-warning",
               message: "Pomyślnie edytowano rezerwacje."
             }
           });
@@ -2851,6 +2859,7 @@ __webpack_require__.r(__webpack_exports__);
         return _this3.$router.push({
           name: "rezerwacje",
           params: {
+            type: "alert-danger",
             message: "Pomyślnie usunięto rezerwacje."
           }
         });
@@ -3070,6 +3079,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Reservation",
   created: function created() {
@@ -3084,7 +3094,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       dates: [],
       godziny: [],
       number: 0,
-      message: null
+      message: null,
+      type: null
     };
   },
   methods: {
@@ -3099,6 +3110,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     getMessage: function getMessage() {
       this.message = this.$route.params.message;
+      this.type = this.$route.params.type;
     },
     sortGodz: function sortGodz() {
       var _this2 = this;
@@ -3274,6 +3286,7 @@ __webpack_require__.r(__webpack_exports__);
         return _this.$router.push({
           name: "zabiegi",
           params: {
+            type: "alert-success",
             message: "Pomyślnie dodano rezerwacje."
           }
         });
@@ -3344,6 +3357,7 @@ __webpack_require__.r(__webpack_exports__);
         return _this.$router.push({
           name: "zabiegi",
           params: {
+            type: "alert-warning",
             message: "Pomyślnie edytowano zabieg."
           }
         });
@@ -3363,6 +3377,7 @@ __webpack_require__.r(__webpack_exports__);
         return _this3.$router.push({
           name: "zabiegi",
           params: {
+            type: "alert-danger",
             message: "Pomyślnie usunięto zabieg."
           }
         });
@@ -3432,12 +3447,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Zabieg",
   data: function data() {
     return {
       zabiegi: null,
-      message: null
+      message: null,
+      type: null
     };
   },
   methods: {
@@ -3450,6 +3467,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     getMessage: function getMessage() {
       this.message = this.$route.params.message;
+      this.type = this.$route.params.type;
     }
   },
   created: function created() {
@@ -40179,7 +40197,8 @@ var render = function() {
       ? _c(
           "p",
           {
-            staticClass: "alert alert-success text-center",
+            staticClass: "alert text-center",
+            class: _vm.type,
             attrs: { role: "alert" }
           },
           [_vm._v("\n        " + _vm._s(_vm.message) + "\n    ")]
@@ -40979,7 +40998,8 @@ var render = function() {
       ? _c(
           "p",
           {
-            staticClass: "alert alert-success text-center",
+            staticClass: "alert text-center",
+            class: _vm.type,
             attrs: { role: "alert" }
           },
           [_vm._v("\n        " + _vm._s(_vm.message) + "\n    ")]
@@ -41539,7 +41559,8 @@ var render = function() {
       ? _c(
           "p",
           {
-            staticClass: "alert alert-success text-center",
+            staticClass: "alert text-center",
+            class: _vm.type,
             attrs: { role: "alert" }
           },
           [_vm._v("\n        " + _vm._s(_vm.message) + "\n    ")]

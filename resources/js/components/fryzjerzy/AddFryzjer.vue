@@ -116,6 +116,7 @@
                         this.$router.push({
                             name: "fryzjerzy",
                             params: {
+                                type: "alert-success",
                                 message: "Pomyślnie dodano fryzjera."
                             }
                         })

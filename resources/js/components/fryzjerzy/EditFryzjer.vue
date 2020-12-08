@@ -95,6 +95,7 @@
                     this.$router.push({
                         name: "fryzjerzy",
                         params: {
+                            type: "alert-danger",
                             message: "Pomyślnie usunięto fryzjera."
                         }
                     })
@@ -139,6 +140,7 @@
                             this.$router.push({
                                 name: "fryzjerzy",
                                 params: {
+                                    type: "alert-warning",
                                     message: "Pomyślnie edytowano fryzjera."
                                 }
                             })
