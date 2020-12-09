@@ -75,22 +75,26 @@ class CennikController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cennik  $cennik
+     * @param  cennik $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cennik $cennik)
+    public function update(Request $request, $id)
     {
-        //
+        $cenn = Cennik::findOrFail($id);
+
+        $cenn->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cennik  $cennik
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cennik $cennik)
+    public function destroy($id)
     {
-        //
+        $cenn = Cennik::findOrFail($id);
+
+        $cenn->delete();
     }
 }

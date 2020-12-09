@@ -1,6 +1,26 @@
 <template>
     <div class="mx-auto">
         <h1 class="text-center">Cennik.vue</h1>
+        <p
+            v-if="message"
+            class="alert text-center"
+            v-bind:class="type"
+            role="alert"
+        >
+            {{ message }}
+        </p>
+        <div class="row">
+            <div
+                class="col-sm-12 col-md-8 col-lg-4 mx-auto my-2 d-flex justify-content-around"
+            >
+                <router-link
+                    class="btn btn-success d-flex align-items-center"
+                    to="/cennik/add"
+                >
+                    Dodaj zabieg
+                </router-link>
+            </div>
+        </div>
 
         <table class="table table-hover text-center">
             <thead class="thead-dark">
@@ -32,12 +52,16 @@
                     <td>{{ zabieg.name }}</td>
                     <td v-for="(fryzjer, idx) in fryzjerzy" :key="idx">
                         <span v-for="cennik in cenniki" :key="cennik.id">
-                            <span
+                            <router-link
+                            :to="'/cennik/edit/'+cennik.id"
                                 v-if="
                                     cennik.zabieg_id === zabieg.id &&
                                         cennik.fryzjer_id === fryzjer.id
                                 "
-                                >{{ cennik.cena }}</span
+                                class="badge badge-pill bg-secondary text-light px-3 py-2"
+                                >
+                                {{ cennik.cena + 'zł' }}
+                                </router-link
                             >
                         </span>
                     </td>
@@ -55,30 +79,38 @@
             return {
                 cenniki: null,
                 zabiegi: null,
-                fryzjerzy: null
+                fryzjerzy: null,
+                message: null,
+                type: null
             };
         },
 
         methods: {
-            getCenniki() {
+            getCenniki: function() {
                 axios.get("/api/cennik").then(res => (this.cenniki = res.data));
             },
 
-            getZabiegi() {
+            getZabiegi: function() {
                 axios.get("/api/zabiegi").then(res => (this.zabiegi = res.data));
             },
 
-            getFryzjerzy() {
+            getFryzjerzy: function() {
                 axios
                     .get("/api/fryzjerzy")
                     .then(res => (this.fryzjerzy = res.data));
-            }
+            },
+
+            getMessage: function() {
+                this.message = this.$route.params.message;
+                this.type = this.$route.params.type;
+            },
         },
 
         created() {
             this.getCenniki();
             this.getZabiegi();
             this.getFryzjerzy();
+            this.getMessage();
         }
     };
 </script>

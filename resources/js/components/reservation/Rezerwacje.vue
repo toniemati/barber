@@ -85,7 +85,7 @@
                         <span v-for="(user, idx) in users" :key="idx">
                             <router-link
                                 :to="'/rezerwacje/edit/' + user.id"
-                                class="badge badge-info"
+                                class="badge badge-pill bg-primary text-light px-3 py-2"
                                 v-if="
                                     user.data === data && user.godzina === godz
                                 "

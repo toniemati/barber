@@ -12,6 +12,8 @@ import Zabieg from './components/zabiegi/Zabieg';
 import AddZabiegi from './components/zabiegi/AddZabiegi';
 import EditZabiegi from './components/zabiegi/EditZabiegi';
 import Cennik from './components/cennik/Cennik';
+import AddCennik from './components/cennik/AddCennik';
+import EditCennik from './components/cennik/EditCennik';
 
 
 Vue.use(VueRouter);
@@ -34,6 +36,8 @@ export default new VueRouter({
         { path: '/zabiegi/edit/:id', name: "editzabiegi", component: EditZabiegi },
         //! CENNIK
         { path: '/cennik', name: 'cennik', component: Cennik },
+        { path: '/cennik/add', name: 'addcennik', component: AddCennik },
+        { path: '/cennik/edit/:id', name: 'editcennik', component: EditCennik },
 
     ],
     mode: 'history'

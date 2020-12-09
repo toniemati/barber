@@ -1940,6 +1940,142 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/AddCennik.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cennik/AddCennik.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddCennik",
+  created: function created() {
+    this.getFryzjerzy();
+    this.getZabiegi();
+  },
+  data: function data() {
+    return {
+      errors: {},
+      fryzjerzy: null,
+      zabiegi: null,
+      cennik: {
+        fryzjer_id: null,
+        zabieg_id: null,
+        cena: null
+      }
+    };
+  },
+  methods: {
+    checkForm: function checkForm(e) {
+      var _this = this;
+
+      e.preventDefault();
+      this.errors = {}; //* Sprawdzenie fryzjer
+
+      if (!this.cennik.fryzjer_id) {
+        this.errors.fryzjer = "Należy wybrać fryzjera!";
+      } //* Sprawdzenie zabiegu
+
+
+      if (!this.cennik.zabieg_id) {
+        this.errors.zabieg = 'Należy wybrać zabieg!';
+      } //* Sprawdzenie ceny
+
+
+      if (!this.cennik.cena) {
+        this.errors.cena = "Należy podać cenę!";
+      } //* Sprawdzenie czy są errory, jak nie to dodajemy do bazy
+
+
+      if (Object.keys(this.errors).length) {// są errory
+      } else {
+        axios.post('/api/cennik', this.cennik).then(function () {
+          return _this.$router.push({
+            name: "cennik",
+            params: {
+              type: "alert-success",
+              message: "Pomyślnie dodano cennik."
+            }
+          });
+        });
+      }
+    },
+    getFryzjerzy: function getFryzjerzy() {
+      var _this2 = this;
+
+      axios.get("/api/fryzjerzy").then(function (res) {
+        return _this2.fryzjerzy = res.data;
+      });
+    },
+    getZabiegi: function getZabiegi() {
+      var _this3 = this;
+
+      axios.get("/api/zabiegi").then(function (res) {
+        return _this3.zabiegi = res.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/Cennik.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cennik/Cennik.vue?vue&type=script&lang=js& ***!
@@ -1998,13 +2134,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Cennik",
   data: function data() {
     return {
       cenniki: null,
       zabiegi: null,
-      fryzjerzy: null
+      fryzjerzy: null,
+      message: null,
+      type: null
     };
   },
   methods: {
@@ -2028,12 +2190,180 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/fryzjerzy").then(function (res) {
         return _this3.fryzjerzy = res.data;
       });
+    },
+    getMessage: function getMessage() {
+      this.message = this.$route.params.message;
+      this.type = this.$route.params.type;
     }
   },
   created: function created() {
     this.getCenniki();
     this.getZabiegi();
     this.getFryzjerzy();
+    this.getMessage();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/EditCennik.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cennik/EditCennik.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AddCennik",
+  created: function created() {
+    this.getCennik(this.$route.params.id);
+    this.getFryzjerzy();
+    this.getZabiegi();
+  },
+  data: function data() {
+    return {
+      errors: {},
+      fryzjerzy: null,
+      zabiegi: null,
+      cennik: {
+        fryzjer_id: null,
+        zabieg_id: null,
+        cena: null
+      }
+    };
+  },
+  methods: {
+    checkForm: function checkForm(e) {
+      var _this = this;
+
+      e.preventDefault();
+      this.errors = {}; //* Sprawdzenie fryzjer
+
+      if (!this.cennik.fryzjer_id) {
+        this.errors.fryzjer = "Należy wybrać fryzjera!";
+      } //* Sprawdzenie zabiegu
+
+
+      if (!this.cennik.zabieg_id) {
+        this.errors.zabieg = 'Należy wybrać zabieg!';
+      } //* Sprawdzenie ceny
+
+
+      if (!this.cennik.cena) {
+        this.errors.cena = "Należy podać cenę!";
+      } //* Sprawdzenie czy są errory, jak nie to dodajemy do bazy
+
+
+      if (Object.keys(this.errors).length) {// są errory
+      } else {
+        delete this.cennik.zabieg;
+        delete this.cennik.fryzjer;
+        axios.put('/api/cennik/' + this.cennik.id, this.cennik).then(function () {
+          return _this.$router.push({
+            name: "cennik",
+            params: {
+              type: "alert-warning",
+              message: "Pomyślnie dodano cennik."
+            }
+          });
+        });
+      }
+    },
+    getFryzjerzy: function getFryzjerzy() {
+      var _this2 = this;
+
+      axios.get("/api/fryzjerzy").then(function (res) {
+        return _this2.fryzjerzy = res.data;
+      });
+    },
+    getZabiegi: function getZabiegi() {
+      var _this3 = this;
+
+      axios.get("/api/zabiegi").then(function (res) {
+        return _this3.zabiegi = res.data;
+      });
+    },
+    getCennik: function getCennik(id) {
+      var _this4 = this;
+
+      axios.get('/api/cennik/' + id).then(function (res) {
+        return _this4.cennik = res.data;
+      });
+    },
+    removeCennik: function removeCennik(id) {
+      var _this5 = this;
+
+      axios["delete"]("/api/cennik/" + id).then(function () {
+        return _this5.$router.push({
+          name: "cennik",
+          params: {
+            type: "alert-danger",
+            message: "Pomyślnie usunięto cennik."
+          }
+        });
+      });
+    }
   }
 });
 
@@ -39840,6 +40170,237 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/AddCennik.vue?vue&type=template&id=51aa9536&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cennik/AddCennik.vue?vue&type=template&id=51aa9536& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "mx-auto" }, [
+    _c("h1", { staticClass: "text-center" }, [_vm._v("Cennik.vue")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
+        attrs: { method: "post" },
+        on: { submit: _vm.checkForm }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "fryzjer" } }, [_vm._v("Fryzjer:")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cennik.fryzjer_id,
+                  expression: "cennik.fryzjer_id"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "fryzjer" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.cennik,
+                    "fryzjer_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", selected: "" } }, [
+                _vm._v("Wybierz fryzjera")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.fryzjerzy, function(fryzjer, idx) {
+                return _c(
+                  "option",
+                  { key: idx, domProps: { value: fryzjer.id } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(fryzjer.imie + " " + fryzjer.nazwisko) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.errors.fryzjer
+            ? _c("p", { staticClass: "text-danger pt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.fryzjer) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "zabieg" } }, [_vm._v("Zabieg:")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cennik.zabieg_id,
+                  expression: "cennik.zabieg_id"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "zabieg" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.cennik,
+                    "zabieg_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", selected: "" } }, [
+                _vm._v("Wybierz zabieg")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.zabiegi, function(zabieg, idx) {
+                return _c(
+                  "option",
+                  { key: idx, domProps: { value: zabieg.id } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(zabieg.name) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.errors.zabieg
+            ? _c("p", { staticClass: "text-danger pt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.zabieg) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "cena" } }, [_vm._v("Cena:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.cennik.cena,
+                expression: "cennik.cena"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "cena", type: "text" },
+            domProps: { value: _vm.cennik.cena },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.cennik, "cena", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.cena
+            ? _c("p", { staticClass: "text-danger pt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.cena) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "form-group d-flex justify-content-around" },
+      [
+        _c(
+          "button",
+          { staticClass: "btn btn-warning", attrs: { type: "reset" } },
+          [_vm._v("\n                Reset\n            ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-success", attrs: { type: "submit" } },
+          [_vm._v("\n                Dodaj\n            ")]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/Cennik.vue?vue&type=template&id=745c1658&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cennik/Cennik.vue?vue&type=template&id=745c1658& ***!
@@ -39857,6 +40418,39 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mx-auto" }, [
     _c("h1", { staticClass: "text-center" }, [_vm._v("Cennik.vue")]),
+    _vm._v(" "),
+    _vm.message
+      ? _c(
+          "p",
+          {
+            staticClass: "alert text-center",
+            class: _vm.type,
+            attrs: { role: "alert" }
+          },
+          [_vm._v("\n        " + _vm._s(_vm.message) + "\n    ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "col-sm-12 col-md-8 col-lg-4 mx-auto my-2 d-flex justify-content-around"
+        },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-success d-flex align-items-center",
+              attrs: { to: "/cennik/add" }
+            },
+            [_vm._v("\n                Dodaj zabieg\n            ")]
+          )
+        ],
+        1
+      )
+    ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-hover text-center" }, [
       _c("thead", { staticClass: "thead-dark" }, [
@@ -39918,12 +40512,31 @@ var render = function() {
                   "td",
                   { key: idx },
                   _vm._l(_vm.cenniki, function(cennik) {
-                    return _c("span", { key: cennik.id }, [
-                      cennik.zabieg_id === zabieg.id &&
-                      cennik.fryzjer_id === fryzjer.id
-                        ? _c("span", [_vm._v(_vm._s(cennik.cena))])
-                        : _vm._e()
-                    ])
+                    return _c(
+                      "span",
+                      { key: cennik.id },
+                      [
+                        cennik.zabieg_id === zabieg.id &&
+                        cennik.fryzjer_id === fryzjer.id
+                          ? _c(
+                              "router-link",
+                              {
+                                staticClass:
+                                  "badge badge-pill bg-secondary text-light px-3 py-2",
+                                attrs: { to: "/cennik/edit/" + cennik.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(cennik.cena + "zł") +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
                   }),
                   0
                 )
@@ -39935,6 +40548,234 @@ var render = function() {
         0
       )
     ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/EditCennik.vue?vue&type=template&id=c7ee0304&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cennik/EditCennik.vue?vue&type=template&id=c7ee0304& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "mx-auto" }, [
+    _c("h1", { staticClass: "text-center" }, [_vm._v("EditCennik.vue")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
+        attrs: { method: "post" },
+        on: { submit: _vm.checkForm }
+      },
+      [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "fryzjer" } }, [_vm._v("Fryzjer:")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cennik.fryzjer_id,
+                  expression: "cennik.fryzjer_id"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "fryzjer" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.cennik,
+                    "fryzjer_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", selected: "" } }, [
+                _vm._v("Wybierz fryzjera")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.fryzjerzy, function(fryzjer, idx) {
+                return _c(
+                  "option",
+                  { key: idx, domProps: { value: fryzjer.id } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(fryzjer.imie + " " + fryzjer.nazwisko) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.errors.fryzjer
+            ? _c("p", { staticClass: "text-danger pt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.fryzjer) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "zabieg" } }, [_vm._v("Zabieg:")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cennik.zabieg_id,
+                  expression: "cennik.zabieg_id"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "zabieg" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.cennik,
+                    "zabieg_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", selected: "" } }, [
+                _vm._v("Wybierz zabieg")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.zabiegi, function(zabieg, idx) {
+                return _c(
+                  "option",
+                  { key: idx, domProps: { value: zabieg.id } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(zabieg.name) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.errors.zabieg
+            ? _c("p", { staticClass: "text-danger pt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.zabieg) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "cena" } }, [_vm._v("Cena:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.cennik.cena,
+                expression: "cennik.cena"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "cena", type: "text" },
+            domProps: { value: _vm.cennik.cena },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.cennik, "cena", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.cena
+            ? _c("p", { staticClass: "text-danger pt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.cena) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group d-flex justify-content-around" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.removeCennik(_vm.cennik.id)
+                }
+              }
+            },
+            [_vm._v("\n                Usuń\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("\n                Edytuj\n            ")]
+          )
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -41299,7 +42140,8 @@ var render = function() {
                           ? _c(
                               "router-link",
                               {
-                                staticClass: "badge badge-info",
+                                staticClass:
+                                  "badge badge-pill bg-primary text-light px-3 py-2",
                                 attrs: { to: "/rezerwacje/edit/" + user.id }
                               },
                               [
@@ -57136,6 +57978,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/cennik/AddCennik.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/cennik/AddCennik.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddCennik_vue_vue_type_template_id_51aa9536___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddCennik.vue?vue&type=template&id=51aa9536& */ "./resources/js/components/cennik/AddCennik.vue?vue&type=template&id=51aa9536&");
+/* harmony import */ var _AddCennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddCennik.vue?vue&type=script&lang=js& */ "./resources/js/components/cennik/AddCennik.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddCennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddCennik_vue_vue_type_template_id_51aa9536___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddCennik_vue_vue_type_template_id_51aa9536___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/cennik/AddCennik.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/cennik/AddCennik.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/cennik/AddCennik.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddCennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddCennik.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/AddCennik.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddCennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/cennik/AddCennik.vue?vue&type=template&id=51aa9536&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/cennik/AddCennik.vue?vue&type=template&id=51aa9536& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddCennik_vue_vue_type_template_id_51aa9536___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddCennik.vue?vue&type=template&id=51aa9536& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/AddCennik.vue?vue&type=template&id=51aa9536&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddCennik_vue_vue_type_template_id_51aa9536___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddCennik_vue_vue_type_template_id_51aa9536___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/cennik/Cennik.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/cennik/Cennik.vue ***!
@@ -57200,6 +58111,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cennik_vue_vue_type_template_id_745c1658___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Cennik_vue_vue_type_template_id_745c1658___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/cennik/EditCennik.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/cennik/EditCennik.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditCennik_vue_vue_type_template_id_c7ee0304___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditCennik.vue?vue&type=template&id=c7ee0304& */ "./resources/js/components/cennik/EditCennik.vue?vue&type=template&id=c7ee0304&");
+/* harmony import */ var _EditCennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditCennik.vue?vue&type=script&lang=js& */ "./resources/js/components/cennik/EditCennik.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditCennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditCennik_vue_vue_type_template_id_c7ee0304___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditCennik_vue_vue_type_template_id_c7ee0304___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/cennik/EditCennik.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/cennik/EditCennik.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/cennik/EditCennik.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditCennik.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/EditCennik.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCennik_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/cennik/EditCennik.vue?vue&type=template&id=c7ee0304&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/cennik/EditCennik.vue?vue&type=template&id=c7ee0304& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCennik_vue_vue_type_template_id_c7ee0304___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditCennik.vue?vue&type=template&id=c7ee0304& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cennik/EditCennik.vue?vue&type=template&id=c7ee0304&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCennik_vue_vue_type_template_id_c7ee0304___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCennik_vue_vue_type_template_id_c7ee0304___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -57955,6 +58935,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_zabiegi_AddZabiegi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/zabiegi/AddZabiegi */ "./resources/js/components/zabiegi/AddZabiegi.vue");
 /* harmony import */ var _components_zabiegi_EditZabiegi__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/zabiegi/EditZabiegi */ "./resources/js/components/zabiegi/EditZabiegi.vue");
 /* harmony import */ var _components_cennik_Cennik__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/cennik/Cennik */ "./resources/js/components/cennik/Cennik.vue");
+/* harmony import */ var _components_cennik_AddCennik__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/cennik/AddCennik */ "./resources/js/components/cennik/AddCennik.vue");
+/* harmony import */ var _components_cennik_EditCennik__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/cennik/EditCennik */ "./resources/js/components/cennik/EditCennik.vue");
+
+
 
 
 
@@ -58023,6 +59007,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/cennik',
     name: 'cennik',
     component: _components_cennik_Cennik__WEBPACK_IMPORTED_MODULE_13__["default"]
+  }, {
+    path: '/cennik/add',
+    name: 'addcennik',
+    component: _components_cennik_AddCennik__WEBPACK_IMPORTED_MODULE_14__["default"]
+  }, {
+    path: '/cennik/edit/:id',
+    name: 'editcennik',
+    component: _components_cennik_EditCennik__WEBPACK_IMPORTED_MODULE_15__["default"]
   }],
   mode: 'history'
 }));
