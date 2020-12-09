@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Cennik;
 use App\Models\Fryzjer;
+use App\Models\Message;
 use App\Models\Reservation;
 use App\Models\User;
 use App\Models\Zabieg;
@@ -21,10 +22,11 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         //* FACTORY
-        Reservation::factory(10)->create();
+        Reservation::factory(20)->create();
         Zabieg::factory(5)->create();
         Fryzjer::factory(5)->create();
         Cennik::factory(10)->create();
+        Message::factory(5)->create();
 
         //* ADMIN USER
         $admin = [

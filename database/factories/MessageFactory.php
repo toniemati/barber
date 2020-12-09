@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Zabieg;
+use App\Models\Message;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ZabiegFactory extends Factory
+class MessageFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Zabieg::class;
+    protected $model = Message::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,10 @@ class ZabiegFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->colorName,
+            'imie' => $this->faker->firstName(),
+            'nazwisko' => $this->faker->lastName,
+            'email' => $this->faker->unique()->safeEmail,
+            'message' => $this->faker->sentence(20),
         ];
     }
 }

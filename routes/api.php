@@ -25,3 +25,5 @@ Route::resource('/zabiegi', 'App\Http\Controllers\ZabiegController');
 Route::resource('/fryzjerzy', 'App\Http\Controllers\FryzjerController');
 
 Route::resource('/cennik', 'App\Http\Controllers\CennikController');
+
+Route::resource('/wiadomosci', 'App\Http\Controllers\MessageController');

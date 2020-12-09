@@ -1,6 +1,6 @@
 <template>
     <div class="mx-auto">
-        <h1 class="text-center">Cennik.vue</h1>
+        <h1 class="text-center">AddCennik.vue</h1>
 
         <form
             method="post"
