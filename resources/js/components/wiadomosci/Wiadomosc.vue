@@ -23,6 +23,13 @@
             </button>
         </div>
 
+        <div
+            v-if="!wiadomosci"
+            class="mx-auto d-flex justify-content-around mt-5"
+        >
+            <h3>Nie ma żadnych wiadomości</h3>
+        </div>
+
         <div class="row col-11 d-flex justify-content-around mx-auto">
             <div
                 v-for="(wiadomosc, idx) in wiadomosci"
@@ -63,7 +70,6 @@
 
         created: function() {
             this.getWiadomosci();
-            this.checkWiadomosc();
         },
 
         data: function() {
@@ -78,12 +84,6 @@
                     this.wiadomosci = res.data;
                     this.setOld();
                 });
-            },
-
-            checkWiadomosc: function() {
-                if (!this.wiadomosci) {
-                    console.log("nie ma zadnych wiaodmosci");
-                }
             },
 
             setOld: function() {

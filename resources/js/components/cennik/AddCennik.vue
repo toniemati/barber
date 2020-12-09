@@ -9,10 +9,18 @@
         >
             <div class="form-group">
                 <label for="fryzjer">Fryzjer:</label>
-                <select id="fryzjer" v-model="cennik.fryzjer_id" class="form-control">
-                    <option disabled selected >Wybierz fryzjera</option>
-                    <option v-for="(fryzjer, idx) in fryzjerzy" :key="idx" :value="fryzjer.id">
-                        {{fryzjer.imie + ' ' + fryzjer.nazwisko}}
+                <select
+                    id="fryzjer"
+                    v-model="cennik.fryzjer_id"
+                    class="form-control"
+                >
+                    <option disabled selected>Wybierz fryzjera</option>
+                    <option
+                        v-for="(fryzjer, idx) in fryzjerzy"
+                        :key="idx"
+                        :value="fryzjer.id"
+                    >
+                        {{ fryzjer.imie + " " + fryzjer.nazwisko }}
                     </option>
                 </select>
                 <p class="text-danger pt-2" v-if="errors.fryzjer">
@@ -22,10 +30,18 @@
 
             <div class="form-group">
                 <label for="zabieg">Zabieg:</label>
-                <select id="zabieg" v-model="cennik.zabieg_id" class="form-control">
-                    <option disabled selected >Wybierz zabieg</option>
-                    <option v-for="(zabieg, idx) in zabiegi" :key="idx" :value="zabieg.id">
-                        {{zabieg.name}}
+                <select
+                    id="zabieg"
+                    v-model="cennik.zabieg_id"
+                    class="form-control"
+                >
+                    <option disabled selected>Wybierz zabieg</option>
+                    <option
+                        v-for="(zabieg, idx) in zabiegi"
+                        :key="idx"
+                        :value="zabieg.id"
+                    >
+                        {{ zabieg.name }}
                     </option>
                 </select>
                 <p class="text-danger pt-2" v-if="errors.zabieg">
@@ -35,7 +51,12 @@
 
             <div class="form-group">
                 <label for="cena">Cena:</label>
-                <input id="cena" type="text" v-model="cennik.cena" class="form-control">
+                <input
+                    id="cena"
+                    type="text"
+                    v-model="cennik.cena"
+                    class="form-control"
+                />
                 <p class="text-danger pt-2" v-if="errors.cena">
                     {{ errors.cena }}
                 </p>
@@ -43,10 +64,34 @@
 
             <div class="form-group d-flex justify-content-around">
                 <button type="reset" class="btn btn-warning">
-                    Reset
+                    <svg
+                        width="1.5rem"
+                        height="1.5rem"
+                        viewBox="0 0 16 16"
+                        class="bi bi-dash"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"
+                        />
+                    </svg>
                 </button>
                 <button type="submit" class="btn btn-success">
-                    Dodaj
+                    <svg
+                        width="1.5rem"
+                        height="1.5rem"
+                        viewBox="0 0 16 16"
+                        class="bi bi-plus"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                        />
+                    </svg>
                 </button>
             </div>
         </form>
@@ -70,7 +115,7 @@
                 cennik: {
                     fryzjer_id: null,
                     zabieg_id: null,
-                    cena: null,
+                    cena: null
                 }
             };
         },
@@ -88,7 +133,7 @@
 
                 //* Sprawdzenie zabiegu
                 if (!this.cennik.zabieg_id) {
-                    this.errors.zabieg = 'Należy wybrać zabieg!';
+                    this.errors.zabieg = "Należy wybrać zabieg!";
                 }
 
                 //* Sprawdzenie ceny
@@ -97,17 +142,18 @@
                 }
 
                 //* Sprawdzenie czy są errory, jak nie to dodajemy do bazy
-                if(Object.keys(this.errors).length) {
+                if (Object.keys(this.errors).length) {
                     // są errory
                 } else {
-                    axios.post('/api/cennik', this.cennik)
-                    .then(()=> this.$router.push({
+                    axios.post("/api/cennik", this.cennik).then(() =>
+                        this.$router.push({
                             name: "cennik",
                             params: {
                                 type: "alert-success",
                                 message: "Pomyślnie dodano cennik."
                             }
-                        }))
+                        })
+                    );
                 }
             },
 
@@ -119,7 +165,7 @@
 
             getZabiegi: function() {
                 axios.get("/api/zabiegi").then(res => (this.zabiegi = res.data));
-            },
+            }
         }
     };
 </script>

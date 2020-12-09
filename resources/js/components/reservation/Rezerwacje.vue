@@ -9,6 +9,7 @@
         >
             {{ message }}
         </p>
+
         <div class="row">
             <div
                 class="col-sm-12 col-lg-6 mx-auto my-2 d-flex justify-content-around"
@@ -51,6 +52,13 @@
                 </button>
             </div>
         </div>
+
+        <div v-if="loading" class="text-center">
+            <div class="spinner-border text-primary my-2" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
         <table class="table table-hover text-center">
             <thead class="thead-dark">
                 <tr>
@@ -112,6 +120,7 @@
 
         data: function() {
             return {
+                loading: null,
                 users: null,
                 fryzjerzy: null,
                 dates: [],
@@ -124,10 +133,13 @@
 
         methods: {
             getUsers: function() {
+                this.loading = true;
                 axios
                     .get("/api/rezerwacje")
                     .then(response =>
-                        (this.users = response.data).then(this.sortGodz())
+                        ((this.users = response.data), (this.loading = false)).then(
+                            this.sortGodz()
+                        )
                     )
                     .catch(err => console.log(err));
             },
@@ -193,5 +205,5 @@
     };
 </script>
 
-<style>
+<style scoped>
 </style>

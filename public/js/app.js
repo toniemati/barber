@@ -2025,6 +2025,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddCennik",
   created: function created() {
@@ -2056,7 +2101,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
       if (!this.cennik.zabieg_id) {
-        this.errors.zabieg = 'Należy wybrać zabieg!';
+        this.errors.zabieg = "Należy wybrać zabieg!";
       } //* Sprawdzenie ceny
 
 
@@ -2067,7 +2112,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (Object.keys(this.errors).length) {// są errory
       } else {
-        axios.post('/api/cennik', this.cennik).then(function () {
+        axios.post("/api/cennik", this.cennik).then(function () {
           return _this.$router.push({
             name: "cennik",
             params: {
@@ -2295,6 +2340,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddCennik",
   created: function created() {
@@ -2327,7 +2423,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
       if (!this.cennik.zabieg_id) {
-        this.errors.zabieg = 'Należy wybrać zabieg!';
+        this.errors.zabieg = "Należy wybrać zabieg!";
       } //* Sprawdzenie ceny
 
 
@@ -2340,7 +2436,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         delete this.cennik.zabieg;
         delete this.cennik.fryzjer;
-        axios.put('/api/cennik/' + this.cennik.id, this.cennik).then(function () {
+        axios.put("/api/cennik/" + this.cennik.id, this.cennik).then(function () {
           return _this.$router.push({
             name: "cennik",
             params: {
@@ -2368,7 +2464,7 @@ __webpack_require__.r(__webpack_exports__);
     getCennik: function getCennik(id) {
       var _this4 = this;
 
-      axios.get('/api/cennik/' + id).then(function (res) {
+      axios.get("/api/cennik/" + id).then(function (res) {
         return _this4.cennik = res.data;
       });
     },
@@ -2399,6 +2495,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2532,6 +2652,36 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2791,6 +2941,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3196,6 +3370,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddRezerwacje",
   data: function data() {
@@ -3463,6 +3667,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Reservation",
   created: function created() {
@@ -3472,6 +3684,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   data: function data() {
     return {
+      loading: null,
       users: null,
       fryzjerzy: null,
       dates: [],
@@ -3485,8 +3698,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     getUsers: function getUsers() {
       var _this = this;
 
+      this.loading = true;
       axios.get("/api/rezerwacje").then(function (response) {
-        return (_this.users = response.data).then(_this.sortGodz());
+        return (_this.users = response.data, _this.loading = false).then(_this.sortGodz());
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -3679,11 +3893,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Wiadomosc",
   created: function created() {
     this.getWiadomosci();
-    this.checkWiadomosc();
   },
   data: function data() {
     return {
@@ -3699,11 +3919,6 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.setOld();
       });
-    },
-    checkWiadomosc: function checkWiadomosc() {
-      if (!this.wiadomosci) {
-        console.log("nie ma zadnych wiaodmosci");
-      }
     },
     setOld: function setOld() {
       this.wiadomosci.forEach(function (mess) {
@@ -3735,6 +3950,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3804,6 +4043,36 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -40544,35 +40813,70 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "form-group d-flex justify-content-around" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-warning", attrs: { type: "reset" } },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-dash",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"
+                    }
+                  })
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-plus",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "form-group d-flex justify-content-around" },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-warning", attrs: { type: "reset" } },
-          [_vm._v("\n                Reset\n            ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", attrs: { type: "submit" } },
-          [_vm._v("\n                Dodaj\n            ")]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -40943,13 +41247,73 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n                Usuń\n            ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-trash text-light",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                    }
+                  })
+                ]
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
             "button",
             { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("\n                Edytuj\n            ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-pencil-square text-light",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                    }
+                  })
+                ]
+              )
+            ]
           )
         ])
       ]
@@ -41113,35 +41477,70 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "form-group d-flex justify-content-around" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-warning", attrs: { type: "reset" } },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-dash",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"
+                    }
+                  })
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-plus",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "form-group d-flex justify-content-around" },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-warning", attrs: { type: "reset" } },
-          [_vm._v("\n                Reset\n            ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", attrs: { type: "submit" } },
-          [_vm._v("\n                Dodaj\n            ")]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -41310,13 +41709,73 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n                Usuń\n            ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-trash text-light",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                    }
+                  })
+                ]
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
             "button",
             { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("\n                Edytuj\n            ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-pencil-square text-light",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                    }
+                  })
+                ]
+              )
+            ]
           )
         ])
       ]
@@ -41789,35 +42248,70 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "form-group d-flex justify-content-around" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-warning", attrs: { type: "reset" } },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-dash",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"
+                    }
+                  })
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-plus",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "form-group d-flex justify-content-around" },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-warning", attrs: { type: "reset" } },
-          [_vm._v("\n                Reset\n            ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", attrs: { type: "submit" } },
-          [_vm._v("\n                Dodaj\n            ")]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -42111,13 +42605,73 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n                Usuń\n            ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-trash text-light",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                    }
+                  })
+                ]
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
             "button",
             { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("\n                Edytuj\n            ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-pencil-square text-light",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                    }
+                  })
+                ]
+              )
+            ]
           )
         ])
       ]
@@ -42131,10 +42685,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4& ***!
-  \*************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -42246,6 +42800,10 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
+    _vm.loading
+      ? _c("div", { staticClass: "text-center" }, [_vm._m(0)])
+      : _vm._e(),
+    _vm._v(" "),
     _c("table", { staticClass: "table table-hover text-center" }, [
       _c("thead", { staticClass: "thead-dark" }, [
         _c(
@@ -42347,7 +42905,21 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "spinner-border text-primary my-2",
+        attrs: { role: "status" }
+      },
+      [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -42482,6 +43054,14 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
+    !_vm.wiadomosci
+      ? _c(
+          "div",
+          { staticClass: "mx-auto d-flex justify-content-around mt-5" },
+          [_c("h3", [_vm._v("Nie ma żadnych wiadomości")])]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row col-11 d-flex justify-content-around mx-auto" },
@@ -42610,35 +43190,70 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "form-group d-flex justify-content-around" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-warning", attrs: { type: "reset" } },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-dash",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"
+                    }
+                  })
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-plus",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "form-group d-flex justify-content-around" },
-      [
-        _c(
-          "button",
-          { staticClass: "btn btn-warning", attrs: { type: "reset" } },
-          [_vm._v("\n                Reset\n            ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", attrs: { type: "submit" } },
-          [_vm._v("\n                Dodaj\n            ")]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -42709,13 +43324,73 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n                Usuń\n            ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-trash text-light",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                    }
+                  })
+                ]
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
             "button",
             { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("\n                Edytuj\n            ")]
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "bi bi-pencil-square text-light",
+                  attrs: {
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    viewBox: "0 0 16 16",
+                    fill: "currentColor",
+                    xmlns: "http://www.w3.org/2000/svg"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      "fill-rule": "evenodd",
+                      d:
+                        "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                    }
+                  })
+                ]
+              )
+            ]
           )
         ])
       ]
@@ -58957,7 +59632,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Rezerwacje_vue_vue_type_template_id_95d0e0e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Rezerwacje.vue?vue&type=template&id=95d0e0e4& */ "./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&");
+/* harmony import */ var _Rezerwacje_vue_vue_type_template_id_95d0e0e4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Rezerwacje.vue?vue&type=template&id=95d0e0e4&scoped=true& */ "./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&scoped=true&");
 /* harmony import */ var _Rezerwacje_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Rezerwacje.vue?vue&type=script&lang=js& */ "./resources/js/components/reservation/Rezerwacje.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -58969,11 +59644,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _Rezerwacje_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Rezerwacje_vue_vue_type_template_id_95d0e0e4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Rezerwacje_vue_vue_type_template_id_95d0e0e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Rezerwacje_vue_vue_type_template_id_95d0e0e4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Rezerwacje_vue_vue_type_template_id_95d0e0e4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "95d0e0e4",
   null
   
 )
@@ -58999,19 +59674,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&scoped=true& ***!
+  \*******************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Rezerwacje_vue_vue_type_template_id_95d0e0e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Rezerwacje.vue?vue&type=template&id=95d0e0e4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Rezerwacje_vue_vue_type_template_id_95d0e0e4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Rezerwacje_vue_vue_type_template_id_95d0e0e4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Rezerwacje.vue?vue&type=template&id=95d0e0e4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reservation/Rezerwacje.vue?vue&type=template&id=95d0e0e4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Rezerwacje_vue_vue_type_template_id_95d0e0e4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Rezerwacje_vue_vue_type_template_id_95d0e0e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Rezerwacje_vue_vue_type_template_id_95d0e0e4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
