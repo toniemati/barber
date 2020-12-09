@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://icons.iconarchive.com/icons/hopstarter/soft-scraps/256/User-Coat-Green-icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('img/admin.ico') }}" type="image/x-icon">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

@@ -17,7 +17,7 @@
                     class="btn btn-success d-flex align-items-center"
                     to="/cennik/add"
                 >
-                    Dodaj zabieg
+                    Dodaj cennik
                 </router-link>
             </div>
         </div>

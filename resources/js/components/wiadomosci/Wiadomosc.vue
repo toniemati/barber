@@ -3,12 +3,15 @@
         <h1 class="text-center">Wiadomosc.vue</h1>
 
         <div class="mx-auto d-flex justify-content-around my-2">
-            <button @click="getWiadomosci" class="btn btn-outline-info">
+            <button
+                @click="getWiadomosci"
+                class="btn btn-outline-info getMessage"
+            >
                 <svg
-                    width="1em"
-                    height="1em"
+                    width="1.5rem"
+                    height="1.5rem"
                     viewBox="0 0 16 16"
-                    class="bi bi-arrow-counterclockwise"
+                    class="bi bi-arrow-counterclockwise mess_spin"
                     fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
                 >
@@ -21,13 +24,6 @@
                     />
                 </svg>
             </button>
-        </div>
-
-        <div
-            v-if="!wiadomosci"
-            class="mx-auto d-flex justify-content-around mt-5"
-        >
-            <h3>Nie ma żadnych wiadomości</h3>
         </div>
 
         <div class="row col-11 d-flex justify-content-around mx-auto">
@@ -98,10 +94,23 @@
                 axios
                     .delete("/api/wiadomosci/" + id)
                     .then(() => this.getWiadomosci());
-            }
+            },
         }
     };
 </script>
 
-<style>
+<style scoped>
+.getMessage:hover > .mess_spin {
+    animation: spin 1s ease-in-out infinite;
+    color: #fff;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
 </style>

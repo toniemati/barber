@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
         //* FACTORY
         Reservation::factory(20)->create();
         Zabieg::factory(5)->create();
-        Fryzjer::factory(5)->create();
-        Cennik::factory(10)->create();
+        Fryzjer::factory(3)->create();
+        Cennik::factory(5)->create();
         Message::factory(5)->create();
 
         //* ADMIN USER
