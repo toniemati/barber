@@ -22,7 +22,7 @@ class CennikFactory extends Factory
     public function definition()
     {
         return [
-            'fryzjer_id' => random_int(1, 5),
+            'fryzjer_id' => random_int(1, 3),
             'zabieg_id' => random_int(1, 5),
             'cena' => random_int(50, 200),
         ];

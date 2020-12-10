@@ -30,7 +30,7 @@ class ReservationFactory extends Factory
         };
 
         return [
-            'fryzjer_id' => random_int(1, 5),
+            'fryzjer_id' => random_int(1, 3),
             'zabieg_id' => random_int(1, 5),
             'imie' => $this->faker->firstName(),
             'nazwisko' => $this->faker->unique()->lastName,

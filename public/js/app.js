@@ -1949,6 +1949,163 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2174,15 +2331,149 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Homepage',
+  name: "Homepage",
   data: function data() {
-    return {
-      show: false
-    };
+    var _ref;
+
+    return _ref = {
+      info: null,
+      user: {},
+      errors: {},
+      showNav: false,
+      showRez: true
+    }, _defineProperty(_ref, "errors", {}), _defineProperty(_ref, "reservations", null), _defineProperty(_ref, "zabiegi", null), _defineProperty(_ref, "user", {
+      fryzjer_id: null,
+      zabieg_id: null,
+      imie: null,
+      nazwisko: null,
+      data: null,
+      godzina: null
+    }), _defineProperty(_ref, "fryzjerzy", null), _defineProperty(_ref, "data", {
+      min: null,
+      max: null
+    }), _ref;
   },
-  created: function created() {},
+  created: function created() {
+    this.getReservation();
+    this.getFryzjerzy();
+    this.getZabiegi();
+    this.setDate();
+  },
   methods: {
-    hamburgerClick: function hamburgerClick() {}
+    getReservation: function getReservation() {
+      var _this = this;
+
+      axios.get("/api/rezerwacje").then(function (res) {
+        return _this.reservations = res.data;
+      });
+    },
+    getFryzjerzy: function getFryzjerzy() {
+      var _this2 = this;
+
+      axios.get("/api/fryzjerzy").then(function (res) {
+        return _this2.fryzjerzy = res.data;
+      });
+    },
+    getZabiegi: function getZabiegi() {
+      var _this3 = this;
+
+      axios.get("/api/zabiegi").then(function (res) {
+        return _this3.zabiegi = res.data;
+      });
+    },
+    checkForm: function checkForm(e) {
+      var _this4 = this;
+
+      this.info = null;
+      this.errors = {}; //* Sprawdzenie imie
+
+      if (!this.user.imie) {
+        this.errors.imie = "Imie jest wymagane!";
+      } else {
+        if (this.user.imie.length >= 3) {// console.log("Imie ok");
+        } else {
+          this.errors.imie = "Imie musić mieć co najmniej 3 znaki!";
+        }
+      } //* Sprawdzenie nazwiska
+
+
+      if (!this.user.nazwisko) {
+        this.errors.nazwisko = "Nazwisko jest wymagane!";
+      } else {
+        if (this.user.nazwisko.length >= 3) {// console.log("Nazwisko ok");
+        } else {
+          this.errors.nazwisko = "Nazwisko musić mieć co najmniej 3 znaki!";
+        }
+      } //* Sprawdzenie fryzjera
+
+
+      if (!this.user.fryzjer_id) {
+        this.errors.fryzjer = "Należy wybrać fryzjera!";
+      } //* Sprawdzenie zabiegu
+
+
+      if (!this.user.zabieg_id) {
+        this.errors.zabieg = "Należy wybrać zabieg!";
+      } //* Sprawdzenie daty i godziny
+
+
+      if (!this.user.data) {
+        this.errors.data = "Data rezerwacji jest wymagana!";
+      }
+
+      if (!this.user.godzina) {
+        this.errors.godzina = "Godzina rezerwacji jest wymagan!";
+      } //* Sprawdzenie czy termin jest zajęty
+
+
+      var godz = this.user.godzina + ":00";
+      this.reservations.forEach(function (res) {
+        if (res.data === _this4.user.data && res.godzina === godz) {
+          _this4.errors.busy = "Ta godzina w wybranym przez ciebie dniu jest zajęta!";
+        }
+      }); //* Sprawdzenie czy sa errory, jak nie to dodajemy do bazy
+
+      if (Object.keys(this.errors).length) {// console.log("sa err");
+      } else {
+        axios.post("/api/rezerwacje", this.user).then(function () {
+          return _this4.info = "Dodano rezerwacje!";
+        });
+      }
+    },
+    setDate: function setDate() {
+      //* Now date
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+
+      if (month < 10) {
+        month = "0" + month;
+      }
+
+      if (day < 10) {
+        day = "0" + day;
+      }
+
+      var now = year + "-" + month + "-" + day;
+      this.data.min = now; //* in2Months
+
+      var in2Months = new Date(year, month + 2, day);
+      year = in2Months.getFullYear();
+      month = in2Months.getMonth();
+      day = in2Months.getDate();
+
+      if (month < 10) {
+        month = "0" + month;
+      }
+
+      if (day < 10) {
+        day = "0" + day;
+      }
+
+      in2Months = year + "-" + month + "-" + day;
+      this.data.max = in2Months;
+    }
   }
 });
 
@@ -8929,7 +9220,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".nav-enter-active[data-v-7f033e59], .nav-leave-active[data-v-7f033e59] {\n  transition: transform 0.3s;\n}\n.nav-enter[data-v-7f033e59], .nav-leave-to[data-v-7f033e59] {\n  transform: translateX(250px);\n}\n.nav-enter-to[data-v-7f033e59], .nav-leave[data-v-7f033e59] {\n  transform: translateX(0px);\n}\n*[data-v-7f033e59] {\n  font-family: \"Poppins\", sans-serif;\n}\n#header[data-v-7f033e59] {\n  height: 100vh;\n  background-image: url(\"/img/brak.png\");\n  background-position: center;\n  background-size: cover;\n}\n#header .logo[data-v-7f033e59] {\n  margin-top: 30px;\n  width: 75px;\n  font-size: 2rem;\n  font-weight: 500;\n  letter-spacing: 5px;\n  -webkit-animation: rotation 15s infinite;\n          animation: rotation 15s infinite;\n}\n#header .header-text[data-v-7f033e59] {\n  max-width: 350px;\n  margin-top: 100px;\n}\n#header h1[data-v-7f033e59] {\n  font-size: 2rem;\n  letter-spacing: 5px;\n}\n#header .common-btn[data-v-7f033e59] {\n  padding: 18px 40px;\n  background: transparent;\n  outline: none;\n  border: 2px solid #FA9746;\n  font-weight: bold;\n  cursor: pointer;\n  border-radius: 5px;\n}\n#header p[data-v-7f033e59] {\n  font-size: 1rem;\n  color: #777;\n  line-height: 20px;\n}\n#header .header-text button[data-v-7f033e59] {\n  margin: 20px 0;\n}\n.square[data-v-7f033e59] {\n  height: 12px;\n  width: 12px;\n  display: inline-block;\n  background: #FA9746;\n  margin: 10px 0;\n}\n.line1[data-v-7f033e59] {\n  width: 15px;\n  height: 15px;\n  background: #FA9746;\n  display: inline-block;\n}\n.line2[data-v-7f033e59] {\n  width: 80px;\n  height: 1px;\n  background: #FA9746;\n  display: inline-block;\n}\n.line3[data-v-7f033e59] {\n  width: 60px;\n  height: 1px;\n  background: #FA9746;\n  display: inline-block;\n}\n.line[data-v-7f033e59] {\n  line-height: 8px;\n}\n#sideNav[data-v-7f033e59] {\n  width: 250px;\n  height: 100vh;\n  position: fixed;\n  right: 0px;\n  top: 0;\n  background: #FA9746;\n}\nnav ul li[data-v-7f033e59] {\n  list-style: none;\n  margin: 50px 20px;\n}\nnav ul li a[data-v-7f033e59] {\n  text-decoration: none;\n  color: #E7ECFF;\n  transition: 0.2s;\n}\nnav ul li a[data-v-7f033e59]:hover {\n  color: #fff;\n  font-size: 1.15rem;\n}\n.hamburger[data-v-7f033e59] {\n  width: 60px;\n  position: fixed;\n  right: 35px;\n  top: 35px;\n  z-index: 2;\n  cursor: pointer;\n  background: #FA9746;\n}\n.hamburger div[data-v-7f033e59] {\n  width: 40px;\n  height: 2px;\n  background-color: #fff;\n  margin: 10px;\n}\n#about[data-v-7f033e59] {\n  padding: 100px 0;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n#about .about-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n#about .about-left-col img[data-v-7f033e59] {\n  width: 100%;\n}\n#about .about-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n  text-align: right;\n}\n#about .about-text[data-v-7f033e59] {\n  max-width: 500px;\n  margin-right: 100px;\n  display: inline-block;\n}\n#about .about-text h2[data-v-7f033e59] {\n  margin: 40px 0 10px;\n  font-size: 1.2rem;\n  font-style: italic;\n}\n#about .about-text h3[data-v-7f033e59] {\n  font-size: 1rem;\n  font-style: italic;\n  color: #797979;\n}\n#features[data-v-7f033e59] {\n  padding: 50px 0;\n}\n#features .features-row[data-v-7f033e59] {\n  width: 80%;\n  margin: auto;\n  display: flex;\n  align-items: center;\n  justify-content: space-around;\n  flex-wrap: wrap;\n}\n#features .feature-col[data-v-7f033e59] {\n  flex-basis: 25%;\n  text-align: center;\n}\n#features .feature-col img[data-v-7f033e59] {\n  width: 85%;\n}\n#features .feature-col h4[data-v-7f033e59] {\n  margin-bottom: 15px;\n  font-size: 1.5rem;\n  font-weight: 400;\n}\n#gallery[data-v-7f033e59] {\n  padding: 100px 0;\n}\n#gallery .gallery-row[data-v-7f033e59] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n#gallery .gallery-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n#gallery .gallery-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n#gallery .gallery-right-col img[data-v-7f033e59] {\n  width: 100%;\n}\n#gallery .gallery-text[data-v-7f033e59] {\n  max-width: 350px;\n}\n#cennik[data-v-7f033e59] {\n  padding: 100px 0;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n#cennik .cennik-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n  text-align: center;\n}\n#cennik .cennik-left-col img[data-v-7f033e59] {\n  width: 100%;\n}\n#cennik .cennik-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n  text-align: right;\n}\n#cennik .cennik-text[data-v-7f033e59] {\n  max-width: 500px;\n  margin-right: 100px;\n  display: inline-block;\n}\n#cennik .cennik-right-col table[data-v-7f033e59] {\n  margin: 2rem auto;\n  border-collapse: collapse;\n  background: transparent;\n}\n#cennik .cennik-right-col table th[data-v-7f033e59] {\n  text-align: center;\n  padding: 1rem;\n  color: #d8843f;\n}\n#cennik .cennik-right-col table td[data-v-7f033e59] {\n  text-align: center;\n  padding: 1rem;\n  text-align: center;\n}\n#cennik .cennik-right-col tr[data-v-7f033e59]:nth-child(2n) {\n  background-color: #F0F0F0;\n}\n#cennik .cennik-right-col tr[data-v-7f033e59]:hover {\n  background-color: #DCDCDC;\n  cursor: pointer;\n}\n.contact-row[data-v-7f033e59] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n.contact-row .contact-left-col[data-v-7f033e59], .contact-row .contact-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n.contact-row .contact-right-col img[data-v-7f033e59] {\n  width: 100%;\n}\n.contact-row .contact-left-col h1[data-v-7f033e59] {\n  font-size: 2rem;\n  letter-spacing: 5px;\n}\n.contact-row .contact-left-col h2[data-v-7f033e59] {\n  margin-top: 30px;\n}\n.contact-row .contact-left-col p[data-v-7f033e59] {\n  font-size: 1rem;\n  margin: 10px;\n}\n#footer[data-v-7f033e59] {\n  padding: 50px 0 30px;\n}\n#footer hr[data-v-7f033e59] {\n  width: 100%;\n  border: 0;\n  border-top: 1px solid #FA9746;\n}\n#footer .footer-row[data-v-7f033e59] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n#footer .footer-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n  margin-top: 60px;\n}\n#footer .footer-right-col[data-v-7f033e59] {\n  flex-basis: 35%;\n  margin-top: 30px;\n}\n#footer .footer-links[data-v-7f033e59] {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n#footer .link-title h4[data-v-7f033e59] {\n  color: #FA9746;\n  margin-bottom: 20px;\n}\n#footer .link-title small[data-v-7f033e59] {\n  font-size: 0.8rem;\n  color: #777;\n}\n#footer .footer-info[data-v-7f033e59] {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n#footer .footer-logo[data-v-7f033e59] {\n  text-align: center;\n}\n#footer .footer-logo img[data-v-7f033e59] {\n  width: 50%;\n}\n#footer .copyright-text[data-v-7f033e59], #footer .footer-logo[data-v-7f033e59] {\n  flex-basis: 40%;\n}\n.social-icons[data-v-7f033e59] {\n  text-align: center;\n  width: 50px;\n  position: fixed;\n  top: 50%;\n  left: 0;\n  transform: translateY(-50%);\n  z-index: 1;\n  background: transparent;\n}\n.social-icons i[data-v-7f033e59] {\n  font-size: 1.5rem;\n  display: block;\n  margin: 0 auto 20px;\n  cursor: pointer;\n}", ""]);
+exports.push([module.i, ".view-enter-active[data-v-7f033e59],\n.view-leave-active[data-v-7f033e59] {\n  transition: transform 1s ease-in-out;\n}\n.view-enter-active[data-v-7f033e59] {\n  transition-delay: 1s;\n}\n.view-enter[data-v-7f033e59] {\n  transform: translateX(100%);\n}\n.view-enter-to[data-v-7f033e59] {\n  transform: translateX(0%);\n}\n.view-leave[data-v-7f033e59] {\n  transform: transalteX(0%);\n}\n.view-leave-to[data-v-7f033e59] {\n  transform: translateX(-100%);\n}\n.nav-enter-active[data-v-7f033e59],\n.nav-leave-active[data-v-7f033e59] {\n  transition: transform 0.3s;\n}\n.nav-enter[data-v-7f033e59],\n.nav-leave-to[data-v-7f033e59] {\n  transform: translateX(250px);\n}\n.nav-enter-to[data-v-7f033e59],\n.nav-leave[data-v-7f033e59] {\n  transform: translateX(0px);\n}\n*[data-v-7f033e59] {\n  font-family: \"Poppins\", sans-serif;\n}\n.showRez[data-v-7f033e59] {\n  height: 100vh;\n  overflow: hidden;\n}\n#header[data-v-7f033e59] {\n  height: 100vh;\n  left: 100%;\n  background-image: url(\"/img/brak.png\");\n  background-position: center;\n  background-size: cover;\n}\n#header .logo[data-v-7f033e59] {\n  margin-top: 30px;\n  width: 75px;\n  font-size: 2rem;\n  font-weight: 500;\n  letter-spacing: 5px;\n  -webkit-animation: rotation 15s infinite;\n          animation: rotation 15s infinite;\n}\n#header .header-text[data-v-7f033e59] {\n  max-width: 350px;\n  margin-top: 100px;\n}\n#header h1[data-v-7f033e59] {\n  font-size: 2rem;\n  letter-spacing: 5px;\n}\n#header p[data-v-7f033e59] {\n  font-size: 1rem;\n  color: #777;\n  line-height: 20px;\n}\n#header .header-text button[data-v-7f033e59] {\n  margin: 20px 0;\n}\n.common-btn[data-v-7f033e59] {\n  padding: 18px 40px;\n  background: transparent;\n  outline: none;\n  border: 2px solid #fa9746;\n  font-weight: bold;\n  cursor: pointer;\n  border-radius: 5px;\n}\n#reservation[data-v-7f033e59] {\n  margin-top: 2rem;\n  text-align: center;\n}\n#reservation .reservation-row[data-v-7f033e59] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n#reservation .reservation-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n#reservation .reservation-right-col img[data-v-7f033e59] {\n  width: 100%;\n}\n#reservation .reservation-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n#reservation form[data-v-7f033e59] {\n  max-width: 350px;\n  margin: 30px auto;\n  text-align: center;\n}\n#reservation form input[data-v-7f033e59] {\n  width: 100%;\n  padding: 12px 12px;\n  margin-bottom: 5px;\n  outline: none;\n  box-shadow: none;\n  box-sizing: border-box;\n  border: 2px solid #fa9746;\n  cursor: pointer;\n  text-transform: capitalize;\n}\n#reservation select[data-v-7f033e59] {\n  border: 2px solid #fa9746;\n}\n#reservation .btn-box[data-v-7f033e59] {\n  width: 100%;\n  display: flex;\n  justify-content: flex-start;\n}\n#reservation .btn-box button[data-v-7f033e59] {\n  flex-basis: 48%;\n  padding: 18px 0;\n  margin: 10px 0;\n}\n.square[data-v-7f033e59] {\n  height: 12px;\n  width: 12px;\n  display: inline-block;\n  background: #fa9746;\n  margin: 10px 0;\n}\n.line1[data-v-7f033e59] {\n  width: 15px;\n  height: 15px;\n  background: #fa9746;\n  display: inline-block;\n}\n.line2[data-v-7f033e59] {\n  width: 80px;\n  height: 1px;\n  background: #fa9746;\n  display: inline-block;\n}\n.line3[data-v-7f033e59] {\n  width: 60px;\n  height: 1px;\n  background: #fa9746;\n  display: inline-block;\n}\n.line[data-v-7f033e59] {\n  line-height: 8px;\n}\n#sideNav[data-v-7f033e59] {\n  width: 250px;\n  height: 100vh;\n  position: fixed;\n  right: 0px;\n  top: 0;\n  background: #fa9746;\n}\nnav ul li[data-v-7f033e59] {\n  list-style: none;\n  margin: 50px 20px;\n}\nnav ul li a[data-v-7f033e59] {\n  text-decoration: none;\n  color: #e7ecff;\n  transition: 0.2s;\n}\nnav ul li a[data-v-7f033e59]:hover {\n  color: #fff;\n  font-size: 1.15rem;\n}\n.hamburger[data-v-7f033e59] {\n  width: 60px;\n  position: fixed;\n  right: 35px;\n  top: 35px;\n  z-index: 2;\n  cursor: pointer;\n  background: #fa9746;\n}\n.hamburger div[data-v-7f033e59] {\n  width: 40px;\n  height: 2px;\n  background-color: #fff;\n  margin: 10px;\n}\n#about[data-v-7f033e59] {\n  padding: 100px 0;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n#about .about-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n#about .about-left-col img[data-v-7f033e59] {\n  width: 100%;\n}\n#about .about-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n  text-align: right;\n}\n#about .about-text[data-v-7f033e59] {\n  max-width: 500px;\n  margin-right: 100px;\n  display: inline-block;\n}\n#about .about-text h2[data-v-7f033e59] {\n  margin: 40px 0 10px;\n  font-size: 1.2rem;\n  font-style: italic;\n}\n#about .about-text h3[data-v-7f033e59] {\n  font-size: 1rem;\n  font-style: italic;\n  color: #797979;\n}\n#features[data-v-7f033e59] {\n  padding: 50px 0;\n}\n#features .features-row[data-v-7f033e59] {\n  width: 80%;\n  margin: auto;\n  display: flex;\n  align-items: center;\n  justify-content: space-around;\n  flex-wrap: wrap;\n}\n#features .feature-col[data-v-7f033e59] {\n  flex-basis: 25%;\n  text-align: center;\n}\n#features .feature-col img[data-v-7f033e59] {\n  width: 85%;\n}\n#features .feature-col h4[data-v-7f033e59] {\n  margin-bottom: 15px;\n  font-size: 1.5rem;\n  font-weight: 400;\n}\n#gallery[data-v-7f033e59] {\n  padding: 100px 0;\n}\n#gallery .gallery-row[data-v-7f033e59] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n#gallery .gallery-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n#gallery .gallery-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n#gallery .gallery-right-col img[data-v-7f033e59] {\n  width: 100%;\n}\n#gallery .gallery-text[data-v-7f033e59] {\n  max-width: 350px;\n}\n#cennik[data-v-7f033e59] {\n  padding: 100px 0;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n#cennik .cennik-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n  text-align: center;\n}\n#cennik .cennik-left-col img[data-v-7f033e59] {\n  width: 100%;\n}\n#cennik .cennik-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n  text-align: right;\n}\n#cennik .cennik-text[data-v-7f033e59] {\n  max-width: 500px;\n  margin-right: 100px;\n  display: inline-block;\n}\n#cennik .cennik-right-col table[data-v-7f033e59] {\n  margin: 2rem auto;\n  border-collapse: collapse;\n  background: transparent;\n}\n#cennik .cennik-right-col table th[data-v-7f033e59] {\n  text-align: center;\n  padding: 1rem;\n  color: #d8843f;\n}\n#cennik .cennik-right-col table td[data-v-7f033e59] {\n  text-align: center;\n  padding: 1rem;\n  text-align: center;\n}\n#cennik .cennik-right-col tr[data-v-7f033e59]:nth-child(2n) {\n  background-color: #f0f0f0;\n}\n#cennik .cennik-right-col tr[data-v-7f033e59]:hover {\n  background-color: #dcdcdc;\n  cursor: pointer;\n}\n.contact-row[data-v-7f033e59] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n}\n.contact-row .contact-left-col[data-v-7f033e59],\n.contact-row .contact-right-col[data-v-7f033e59] {\n  flex-basis: 50%;\n}\n.contact-row .contact-right-col img[data-v-7f033e59] {\n  width: 100%;\n}\n.contact-row .contact-left-col h1[data-v-7f033e59] {\n  font-size: 2rem;\n  letter-spacing: 5px;\n}\n.contact-row .contact-left-col h2[data-v-7f033e59] {\n  margin-top: 30px;\n}\n.contact-row .contact-left-col p[data-v-7f033e59] {\n  font-size: 1rem;\n  margin: 10px;\n}\n#footer[data-v-7f033e59] {\n  padding: 50px 0 30px;\n}\n#footer hr[data-v-7f033e59] {\n  width: 100%;\n  border: 0;\n  border-top: 1px solid #fa9746;\n}\n#footer .footer-row[data-v-7f033e59] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n#footer .footer-left-col[data-v-7f033e59] {\n  flex-basis: 50%;\n  margin-top: 60px;\n}\n#footer .footer-right-col[data-v-7f033e59] {\n  flex-basis: 35%;\n  margin-top: 30px;\n}\n#footer .footer-links[data-v-7f033e59] {\n  display: flex;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n#footer .link-title h4[data-v-7f033e59] {\n  color: #fa9746;\n  margin-bottom: 20px;\n}\n#footer .link-title small[data-v-7f033e59] {\n  font-size: 0.8rem;\n  color: #777;\n}\n#footer .footer-info[data-v-7f033e59] {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  flex-wrap: wrap;\n}\n#footer .footer-logo[data-v-7f033e59] {\n  text-align: center;\n}\n#footer .footer-logo img[data-v-7f033e59] {\n  width: 50%;\n}\n#footer .copyright-text[data-v-7f033e59],\n#footer .footer-logo[data-v-7f033e59] {\n  flex-basis: 40%;\n}\n.social-icons[data-v-7f033e59] {\n  text-align: center;\n  width: 50px;\n  position: fixed;\n  top: 50%;\n  left: 0;\n  transform: translateY(-50%);\n  z-index: 1;\n  background: transparent;\n}\n.social-icons i[data-v-7f033e59] {\n  font-size: 1.5rem;\n  display: block;\n  margin: 0 auto 20px;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -40935,15 +41226,485 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
+      _c(
+        "div",
+        { staticClass: "showRez" },
+        [
+          _c("transition", { attrs: { name: "view" } }, [
+            _vm.showRez
+              ? _c("section", { attrs: { id: "header" } }, [
+                  _c("div", { staticClass: "container" }, [
+                    _c("img", {
+                      staticClass: "logo",
+                      attrs: { src: "/img/fashion-hair.png", alt: "logo" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "header-text" }, [
+                      _c("h2", [
+                        _vm._v("\n              Kamil Mainka "),
+                        _c("br"),
+                        _vm._v("\n              Golibroda\n            ")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "square" }),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("\n              Co tu więcej pisać,"),
+                        _c("br"),
+                        _vm._v(
+                          "niż to że jest to wspaniały fryzjer :)\n            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn common-btn",
+                          on: {
+                            click: function($event) {
+                              _vm.showRez = !_vm.showRez
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n              Złóż rezerwacje\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "line" }, [
+                        _c("span", { staticClass: "line1" }),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "line2" }),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "line3" })
+                      ])
+                    ])
+                  ])
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("transition", { attrs: { name: "view" } }, [
+            !_vm.showRez
+              ? _c("section", { attrs: { id: "reservation" } }, [
+                  _c("div", { staticClass: "container reservation-row" }, [
+                    _c("div", { staticClass: "reservation-left-col" }, [
+                      _c("h1", [_vm._v("Rezerwacja")]),
+                      _vm._v(" "),
+                      _c(
+                        "form",
+                        {
+                          staticClass: "col-sm-12 col-md-8 col-lg-4 mx-auto",
+                          attrs: { method: "post" },
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.checkForm($event)
+                            }
+                          }
+                        },
+                        [
+                          _c("div", { staticClass: "form-group text-left" }, [
+                            _c("label", { attrs: { for: "imie" } }, [
+                              _vm._v("Imie")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.imie,
+                                  expression: "user.imie"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { id: "imie", type: "text" },
+                              domProps: { value: _vm.user.imie },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.user,
+                                    "imie",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.imie
+                              ? _c("p", { staticClass: "text-danger pt-2" }, [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(_vm.errors.imie) +
+                                      "\n                "
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group text-left" }, [
+                            _c("label", { attrs: { for: "nazwisko" } }, [
+                              _vm._v("Nazwisko")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.nazwisko,
+                                  expression: "user.nazwisko"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { id: "nazwisko", type: "text" },
+                              domProps: { value: _vm.user.nazwisko },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.user,
+                                    "nazwisko",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.nazwisko
+                              ? _c("p", { staticClass: "text-danger pt-2" }, [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(_vm.errors.nazwisko) +
+                                      "\n                "
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group text-left" }, [
+                            _c("label", { attrs: { for: "fryzjer" } }, [
+                              _vm._v("Fryzjer")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.user.fryzjer_id,
+                                    expression: "user.fryzjer_id"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "fryzjer" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.user,
+                                      "fryzjer_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { selected: "", disabled: "" } },
+                                  [_vm._v("Wybierz fryzjera")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.fryzjerzy, function(fryzjer, i) {
+                                  return _c(
+                                    "option",
+                                    { key: i, domProps: { value: fryzjer.id } },
+                                    [
+                                      _vm._v(
+                                        "\n                    " +
+                                          _vm._s(
+                                            fryzjer.imie +
+                                              " " +
+                                              fryzjer.nazwisko
+                                          ) +
+                                          "\n                  "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _vm.errors.fryzjer
+                              ? _c("p", { staticClass: "text-danger pt-2" }, [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(_vm.errors.fryzjer) +
+                                      "\n                "
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group text-left" }, [
+                            _c("label", { attrs: { for: "zabieg" } }, [
+                              _vm._v("Zabieg")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.user.zabieg_id,
+                                    expression: "user.zabieg_id"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "zabieg" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.user,
+                                      "zabieg_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { selected: "", disabled: "" } },
+                                  [_vm._v("Wybierz zabieg")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.zabiegi, function(zabieg, i) {
+                                  return _c(
+                                    "option",
+                                    { key: i, domProps: { value: zabieg.id } },
+                                    [
+                                      _vm._v(
+                                        "\n                    " +
+                                          _vm._s(zabieg.name) +
+                                          "\n                  "
+                                      )
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _vm.errors.zabieg
+                              ? _c("p", { staticClass: "text-danger pt-2" }, [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(_vm.errors.zabieg) +
+                                      "\n                "
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group text-left" }, [
+                            _c("label", { attrs: { for: "data" } }, [
+                              _vm._v("Data")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.data,
+                                  expression: "user.data"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                id: "data",
+                                min: _vm.data.min,
+                                max: _vm.data.max,
+                                type: "date"
+                              },
+                              domProps: { value: _vm.user.data },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.user,
+                                    "data",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.data
+                              ? _c("p", { staticClass: "text-danger pt-2" }, [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(_vm.errors.data) +
+                                      "\n                "
+                                  )
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group text-left" }, [
+                            _c("label", { attrs: { for: "godzina" } }, [
+                              _vm._v("Godzina")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.user.godzina,
+                                  expression: "user.godzina"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                id: "godzina",
+                                min: "10:00",
+                                max: "20:00",
+                                step: "1800",
+                                type: "time"
+                              },
+                              domProps: { value: _vm.user.godzina },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.user,
+                                    "godzina",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.godzina
+                              ? _c("p", { staticClass: "text-danger pt-2" }, [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(_vm.errors.godzina) +
+                                      "\n                "
+                                  )
+                                ])
+                              : _vm.errors.busy
+                              ? _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "text-danger pt-2 font-weight-bold text-center"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(_vm.errors.busy) +
+                                        "\n                "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _vm.info
+                            ? _c("h3", { staticClass: "text-success" }, [
+                                _vm._v(_vm._s(_vm.info))
+                              ])
+                            : _c("div", { staticClass: "btn-box" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "common-btn",
+                                    attrs: { name: "submit", type: "submit" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                  Zarezerwuj\n                "
+                                    )
+                                  ]
+                                )
+                              ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "reservation-right-col" }, [
+                      _c("img", {
+                        attrs: {
+                          src: "/img/Taking notes-amico.png",
+                          alt: "rezerwacja"
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              : _vm._e()
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("transition", { attrs: { name: "nav" } }, [
-        _vm.show
+        _vm.showNav
           ? _c("nav", { attrs: { id: "sideNav" } }, [
               _c("ul", [
                 _c("li", [
                   _c("a", { attrs: { href: "#header" } }, [
                     _vm._v("Strona główna")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("a", { attrs: { href: "#reservation" } }, [
+                    _vm._v("Rezerwacja")
                   ])
                 ]),
                 _vm._v(" "),
@@ -40965,12 +41726,6 @@ var render = function() {
                 _vm._v(" "),
                 _c("li", [
                   _c("a", { attrs: { href: "#contact" } }, [_vm._v("Kontakt")])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#reservation" } }, [
-                    _vm._v("Rezerwacja")
-                  ])
                 ])
               ])
             ])
@@ -40983,7 +41738,7 @@ var render = function() {
           staticClass: "hamburger",
           on: {
             click: function($event) {
-              _vm.show = !_vm.show
+              _vm.showNav = !_vm.showNav
             }
           }
         },
@@ -40996,6 +41751,8 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
       _vm._m(2),
@@ -41006,53 +41763,12 @@ var render = function() {
       _vm._v(" "),
       _vm._m(5),
       _vm._v(" "),
-      _vm._m(6),
-      _vm._v(" "),
-      _vm._m(7)
+      _vm._m(6)
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { attrs: { id: "header" } }, [
-      _c("div", { staticClass: "container" }, [
-        _c("img", {
-          staticClass: "logo",
-          attrs: { src: "/img/fashion-hair.png", alt: "logo" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "header-text" }, [
-          _c("h2", [_vm._v("Kamil Mainka "), _c("br"), _vm._v(" Golibroda")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "square" }),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v("Co tu więcej pisać,"),
-            _c("br"),
-            _vm._v("niż to że jest to wspaniały fryzjer :)")
-          ]),
-          _vm._v(" "),
-          _c("button", { staticClass: "btn common-btn" }, [
-            _vm._v("Złóż rezerwacje")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "line" }, [
-            _c("span", { staticClass: "line1" }),
-            _c("br"),
-            _vm._v(" "),
-            _c("span", { staticClass: "line2" }),
-            _c("br"),
-            _vm._v(" "),
-            _c("span", { staticClass: "line3" })
-          ])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -41071,13 +41787,15 @@ var staticRenderFns = [
           _c("p", [
             _vm._v("Patrzę na człowieka i od razu widzę, co chciałbym zrobić.")
           ]),
+          _vm._v(" "),
           _c("br"),
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "Podobno mam talent do przełamywania pierwszych lodów, a to bardzo pomaga we fryzjerstwie. Kiedy\n                  klient się staje się wyluzowany i otwarty, możesz go zrozumieć i lepiej obsłużyć. Zwykle od razu\n                  wiem, co chciałbym zrobić, ale nic na siłę. Trzeba się skonsultować, bo to klient ma być zadowolony.\n              "
+              "\n          Podobno mam talent do przełamywania pierwszych lodów, a to bardzo\n          pomaga we fryzjerstwie. Kiedy klient się staje się wyluzowany i\n          otwarty, możesz go zrozumieć i lepiej obsłużyć. Zwykle od razu wiem,\n          co chciałbym zrobić, ale nic na siłę. Trzeba się skonsultować, bo to\n          klient ma być zadowolony.\n        "
             )
           ]),
+          _vm._v(" "),
           _c("br"),
           _vm._v(" "),
           _c("div", { staticClass: "line" }, [
@@ -41092,7 +41810,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("h2", [
             _vm._v(
-              "Gdyby mnie dziś odcięli od roboty, chyba bym umarł. Wszystko w niej jest fajne – praca, kontakt z\n                  ludźmi i historie, które opowiadają. Słyszałem, że mam zaraźliwy entuzjazm, więc wygląda na to, że\n                  znalazłem się we właściwym miejscu."
+              "\n          Gdyby mnie dziś odcięli od roboty, chyba bym umarł. Wszystko w niej\n          jest fajne – praca, kontakt z ludźmi i historie, które opowiadają.\n          Słyszałem, że mam zaraźliwy entuzjazm, więc wygląda na to, że\n          znalazłem się we właściwym miejscu.\n        "
             )
           ]),
           _vm._v(" "),
@@ -41114,7 +41832,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "O jakości męskiej fryzury decyduje przede wszystkim odpowiednie strzyżenie."
+              "\n          O jakości męskiej fryzury decyduje przede wszystkim odpowiednie\n          strzyżenie.\n        "
             )
           ])
         ]),
@@ -41134,7 +41852,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "Nastały czasy, w których mężczyzna chce wyglądać wyjątkowo dobrze."
+              "\n          Nastały czasy, w których mężczyzna chce wyglądać wyjątkowo dobrze.\n        "
             )
           ])
         ])
@@ -41155,7 +41873,7 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", [
               _vm._v(
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia facere nemo, magnam nam numquam\n                      perspiciatis culpa praesentium sed minus sit magni. Quibusdam odio nulla reiciendis sequi!\n                      Doloribus quidem quibusdam voluptatibus."
+                "\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia\n            facere nemo, magnam nam numquam perspiciatis culpa praesentium sed\n            minus sit magni. Quibusdam odio nulla reiciendis sequi! Doloribus\n            quidem quibusdam voluptatibus.\n          "
               )
             ])
           ])
